@@ -45,6 +45,7 @@ easy_admin:
           - { property: 'ships'}
           - { property: 'placements'}
           - { property: 'cells'}
+          - { property: 'turns'}
     Ship:
       class: App\Entity\Ship
       list:
@@ -73,6 +74,7 @@ easy_admin:
           - { property: 'x'}
           - { property: 'y'}
           - { property: 'game'}
+          - { property: 'player'}
   design:
     menu:
       - Game

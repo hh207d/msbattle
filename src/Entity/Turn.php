@@ -49,6 +49,12 @@ class Turn
      */
     private $game;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="turns")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
 
     public function __toString()
     {
@@ -88,6 +94,18 @@ class Turn
     public function setGame(?Game $game): self
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }

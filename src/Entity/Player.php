@@ -52,11 +52,17 @@ class Player
      */
     private $cells;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Turn::class, mappedBy="player")
+     */
+    private $turns;
+
     public function __construct()
     {
         $this->ships = new ArrayCollection();
         $this->placements = new ArrayCollection();
         $this->cells = new ArrayCollection();
+        $this->turns = new ArrayCollection();
     }
 
     public function __toString()
@@ -165,6 +171,37 @@ class Player
             // set the owning side to null (unless already changed)
             if ($cell->getPlayer() === $this) {
                 $cell->setPlayer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Turn[]
+     */
+    public function getTurns(): Collection
+    {
+        return $this->turns;
+    }
+
+    public function addTurn(Turn $turn): self
+    {
+        if (!$this->turns->contains($turn)) {
+            $this->turns[] = $turn;
+            $turn->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTurn(Turn $turn): self
+    {
+        if ($this->turns->contains($turn)) {
+            $this->turns->removeElement($turn);
+            // set the owning side to null (unless already changed)
+            if ($turn->getPlayer() === $this) {
+                $turn->setPlayer(null);
             }
         }
 

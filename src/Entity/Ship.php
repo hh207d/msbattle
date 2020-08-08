@@ -39,6 +39,7 @@ class Ship
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="ships")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $game;
 
