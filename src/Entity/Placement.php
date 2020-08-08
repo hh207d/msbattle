@@ -51,6 +51,17 @@ class Placement
      */
     private $orientation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="placements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
+    public function __toString()
+    {
+        return strval($this->getId());
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,5 +95,17 @@ class Placement
     public function getOrientation(): ?string
     {
         return $this->orientation;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
     }
 }

@@ -43,6 +43,18 @@ class Turn
      */
     private $ycoord;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="turns")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
+
+    public function __toString()
+    {
+        return strval($this->getId());
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,5 +78,17 @@ class Turn
     public function getYcoord(): ?int
     {
         return $this->ycoord;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
     }
 }

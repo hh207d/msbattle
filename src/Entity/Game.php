@@ -58,9 +58,27 @@ class Game
      */
     private $ships;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Placement::class, mappedBy="game")
+     */
+    private $placements;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Turn::class, mappedBy="game")
+     */
+    private $turns;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cell::class, mappedBy="game")
+     */
+    private $cells;
+
     public function __construct()
     {
         $this->ships = new ArrayCollection();
+        $this->placements = new ArrayCollection();
+        $this->turns = new ArrayCollection();
+        $this->cells = new ArrayCollection();
     }
 
     public function __toString()
@@ -128,6 +146,99 @@ class Game
             // set the owning side to null (unless already changed)
             if ($ship->getGame() === $this) {
                 $ship->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Placement[]
+     */
+    public function getPlacements(): Collection
+    {
+        return $this->placements;
+    }
+
+    public function addPlacement(Placement $placement): self
+    {
+        if (!$this->placements->contains($placement)) {
+            $this->placements[] = $placement;
+            $placement->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlacement(Placement $placement): self
+    {
+        if ($this->placements->contains($placement)) {
+            $this->placements->removeElement($placement);
+            // set the owning side to null (unless already changed)
+            if ($placement->getGame() === $this) {
+                $placement->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Turn[]
+     */
+    public function getTurns(): Collection
+    {
+        return $this->turns;
+    }
+
+    public function addTurn(Turn $turn): self
+    {
+        if (!$this->turns->contains($turn)) {
+            $this->turns[] = $turn;
+            $turn->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTurn(Turn $turn): self
+    {
+        if ($this->turns->contains($turn)) {
+            $this->turns->removeElement($turn);
+            // set the owning side to null (unless already changed)
+            if ($turn->getGame() === $this) {
+                $turn->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cell[]
+     */
+    public function getCells(): Collection
+    {
+        return $this->cells;
+    }
+
+    public function addCell(Cell $cell): self
+    {
+        if (!$this->cells->contains($cell)) {
+            $this->cells[] = $cell;
+            $cell->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCell(Cell $cell): self
+    {
+        if ($this->cells->contains($cell)) {
+            $this->cells->removeElement($cell);
+            // set the owning side to null (unless already changed)
+            if ($cell->getGame() === $this) {
+                $cell->setGame(null);
             }
         }
 

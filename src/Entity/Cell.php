@@ -51,6 +51,23 @@ class Cell
      */
     private $cellstate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ship::class, inversedBy="cells")
+     */
+    private $ship;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="cells")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
+    public function __toString()
+    {
+        return strval($this->getId());
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,4 +102,29 @@ class Cell
     {
         return $this->cellstate;
     }
+
+    public function getShip(): ?Ship
+    {
+        return $this->ship;
+    }
+
+    public function setShip(?Ship $ship): self
+    {
+        $this->ship = $ship;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
 }

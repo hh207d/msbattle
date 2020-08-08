@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,6 +47,16 @@ class Ship
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cell::class, mappedBy="ship")
+     */
+    private $cells;
+
+    public function __construct()
+    {
+        $this->cells = new ArrayCollection();
+    }
 
 
     public function __toString()
@@ -88,6 +100,37 @@ class Ship
     public function setType(?Shiptype $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cell[]
+     */
+    public function getCells(): Collection
+    {
+        return $this->cells;
+    }
+
+    public function addCell(Cell $cell): self
+    {
+        if (!$this->cells->contains($cell)) {
+            $this->cells[] = $cell;
+            $cell->setShip($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCell(Cell $cell): self
+    {
+        if ($this->cells->contains($cell)) {
+            $this->cells->removeElement($cell);
+            // set the owning side to null (unless already changed)
+            if ($cell->getShip() === $this) {
+                $cell->setShip(null);
+            }
+        }
 
         return $this;
     }
