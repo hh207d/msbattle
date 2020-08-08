@@ -53,6 +53,12 @@ class Ship
      */
     private $cells;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="ships")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
     public function __construct()
     {
         $this->cells = new ArrayCollection();
@@ -131,6 +137,18 @@ class Ship
                 $cell->setShip(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }

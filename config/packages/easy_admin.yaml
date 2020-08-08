@@ -32,6 +32,7 @@ easy_admin:
           - { property: 'ycoord'}
           - { property: 'orientation'}
           - { property: 'game'}
+          - { property: 'player'}
     Player:
       class: App\Entity\Player
       list:
@@ -39,6 +40,8 @@ easy_admin:
         fields:
           - { property: 'id'}
           - { property: 'username'}
+          - { property: 'ships'}
+          - { property: 'placements'}
     Ship:
       class: App\Entity\Ship
       list:
@@ -48,6 +51,7 @@ easy_admin:
           - { property: 'state'}
           - { property: 'type'}
           - { property: 'game'}
+          - { property: 'player'}
     Shiptype:
       class: App\Entity\Shiptype
       list:
