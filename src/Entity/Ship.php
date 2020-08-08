@@ -59,6 +59,11 @@ class Ship
      */
     private $player;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Placement::class, mappedBy="ship", cascade={"persist", "remove"})
+     */
+    private $placement;
+
     public function __construct()
     {
         $this->cells = new ArrayCollection();
@@ -149,6 +154,23 @@ class Ship
     public function setPlayer(?Player $player): self
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getPlacement(): ?Placement
+    {
+        return $this->placement;
+    }
+
+    public function setPlacement(Placement $placement): self
+    {
+        $this->placement = $placement;
+
+        // set the owning side of the relation if necessary
+        if ($placement->getShip() !== $this) {
+            $placement->setShip($this);
+        }
 
         return $this;
     }

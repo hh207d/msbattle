@@ -47,12 +47,22 @@ class Player
      */
     private $placements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cell::class, mappedBy="player")
+     */
+    private $cells;
+
     public function __construct()
     {
         $this->ships = new ArrayCollection();
         $this->placements = new ArrayCollection();
+        $this->cells = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +134,37 @@ class Player
             // set the owning side to null (unless already changed)
             if ($placement->getPlayer() === $this) {
                 $placement->setPlayer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cell[]
+     */
+    public function getCells(): Collection
+    {
+        return $this->cells;
+    }
+
+    public function addCell(Cell $cell): self
+    {
+        if (!$this->cells->contains($cell)) {
+            $this->cells[] = $cell;
+            $cell->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCell(Cell $cell): self
+    {
+        if ($this->cells->contains($cell)) {
+            $this->cells->removeElement($cell);
+            // set the owning side to null (unless already changed)
+            if ($cell->getPlayer() === $this) {
+                $cell->setPlayer(null);
             }
         }
 

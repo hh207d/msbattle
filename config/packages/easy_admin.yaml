@@ -12,6 +12,7 @@ easy_admin:
           - { property: 'yCoordinate'}
           - { property: 'cellstate'}
           - { property: 'ship'}
+          - { property: 'player'}
     Game:
       class: App\Entity\Game
       list:
@@ -33,6 +34,7 @@ easy_admin:
           - { property: 'orientation'}
           - { property: 'game'}
           - { property: 'player'}
+          - { property: 'ship'}
     Player:
       class: App\Entity\Player
       list:
@@ -42,6 +44,7 @@ easy_admin:
           - { property: 'username'}
           - { property: 'ships'}
           - { property: 'placements'}
+          - { property: 'cells'}
     Ship:
       class: App\Entity\Ship
       list:
@@ -52,6 +55,7 @@ easy_admin:
           - { property: 'type'}
           - { property: 'game'}
           - { property: 'player'}
+          - { property: 'placement'}
     Shiptype:
       class: App\Entity\Shiptype
       list:

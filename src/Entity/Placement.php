@@ -63,6 +63,12 @@ class Placement
      */
     private $player;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Ship::class, inversedBy="placement", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ship;
+
     public function __toString()
     {
         return strval($this->getId());
@@ -123,6 +129,18 @@ class Placement
     public function setPlayer(?Player $player): self
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getShip(): ?Ship
+    {
+        return $this->ship;
+    }
+
+    public function setShip(Ship $ship): self
+    {
+        $this->ship = $ship;
 
         return $this;
     }

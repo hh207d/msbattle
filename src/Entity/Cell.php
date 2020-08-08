@@ -62,6 +62,12 @@ class Cell
      */
     private $game;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="cells")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
     public function __toString()
     {
         return strval($this->getId());
@@ -123,6 +129,18 @@ class Cell
     public function setGame(?Game $game): self
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }
