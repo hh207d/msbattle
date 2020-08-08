@@ -1,5 +1,7 @@
 easy_admin:
   site_name: 'Temporary admin site for mybattle'
+  user:
+    name_property_path: 'email'
   entities:
     # List the entity class name you want to manage
     Cell:
