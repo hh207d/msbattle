@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -51,6 +53,16 @@ class Game
      */
     private $state;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ship::class, mappedBy="game")
+     */
+    private $ships;
+
+    public function __construct()
+    {
+        $this->ships = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,5 +96,36 @@ class Game
     public function getState(): string
     {
         return $this->state;
+    }
+
+    /**
+     * @return Collection|Ship[]
+     */
+    public function getShips(): Collection
+    {
+        return $this->ships;
+    }
+
+    public function addShip(Ship $ship): self
+    {
+        if (!$this->ships->contains($ship)) {
+            $this->ships[] = $ship;
+            $ship->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShip(Ship $ship): self
+    {
+        if ($this->ships->contains($ship)) {
+            $this->ships->removeElement($ship);
+            // set the owning side to null (unless already changed)
+            if ($ship->getGame() === $this) {
+                $ship->setGame(null);
+            }
+        }
+
+        return $this;
     }
 }

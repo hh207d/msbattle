@@ -35,6 +35,12 @@ class Ship
      */
     private $state;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="ships")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -48,5 +54,17 @@ class Ship
     public function getState(): string
     {
         return $this->state;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
     }
 }
