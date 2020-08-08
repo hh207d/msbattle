@@ -1,0 +1,37 @@
+types:
+  Game:
+    properties:
+      sizeX: { nullable: false, range: "Integer" }
+      sizeY: { nullable: false, range: "Integer" }
+      state: { nullable: false, range: "Text" }
+
+  Cell:
+    properties:
+
+      xCoordinate: { nullable: false, range: "Integer" }
+      yCoordinate: { nullable: false, range: "Integer" }
+      cellstate: { nullable: false, range: "Text" }
+
+  Player:
+    properties:
+      username: { nullable: false, range: "Text" }
+
+  Ship:
+    properties:
+      state: { nullable: false, range: "Text" }
+
+  Shiptype:
+    properties:
+      name: { nullable: false, range: "Text" }
+      length: { nullable: false, range: "Integer" }
+
+  Placement:
+    properties:
+      xcoord: { nullable: false, range: "Integer" }
+      ycoord: { nullable: false, range: "Integer" }
+      orientation: { nullable: false, range: "Text" }
+
+  Turn:
+    properties:
+      xcoord: { nullable: false, range: "Integer" }
+      ycoord: { nullable: false, range: "Integer" }

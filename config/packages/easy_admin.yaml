@@ -1,0 +1,73 @@
+easy_admin:
+  site_name: 'Temporary admin site for mybattle'
+  entities:
+    # List the entity class name you want to manage
+    Cell:
+      class: App\Entity\Cell
+      list:
+        title: 'List of Cells'
+        fields:
+          - { property: 'id'}
+          - { property: 'xCoordinate'}
+          - { property: 'yCoordinate'}
+          - { property: 'cellstate'}
+    Game:
+      class: App\Entity\Game
+      list:
+        title: 'List of Games'
+        fields:
+          - { property: 'id'}
+          - { property: 'sizeX'}
+          - { property: 'sizeY'}
+          - { property: 'state'}
+    Placement:
+      class: App\Entity\Placement
+      list:
+        title: 'List of Placements'
+        fields:
+          - { property: 'id'}
+          - { property: 'xcoord'}
+          - { property: 'ycoord'}
+          - { property: 'orientation'}
+    Player:
+      class: App\Entity\Player
+      list:
+        title: 'List of Players'
+        fields:
+          - { property: 'id'}
+          - { property: 'username'}
+    Ship:
+      class: App\Entity\Ship
+      list:
+        title: 'List of Ships'
+        fields:
+          - { property: 'id'}
+          - { property: 'state'}
+    Shiptype:
+      class: App\Entity\Shiptype
+      list:
+        title: 'List of Shiptypes'
+        fields:
+          - { property: 'id'}
+          - { property: 'name'}
+          - { property: 'length'}
+    Turn:
+      class: App\Entity\Turn
+      list:
+        title: 'List of Turns'
+        fields:
+          - { property: 'id'}
+          - { property: 'x'}
+          - { property: 'y'}
+  design:
+    menu:
+      - Game
+      - Ship
+      - Player
+      - Cell
+      - Placement
+      - Turn
+      - Shiptype
+      - { label: 'Logout', url: '/logout'}
+
+
