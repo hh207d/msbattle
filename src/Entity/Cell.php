@@ -61,7 +61,7 @@ class Cell
         $this->xCoordinate = $xCoordinate;
     }
 
-    public function getXCoordinate(): int
+    public function getXCoordinate(): ?int
     {
         return $this->xCoordinate;
     }
@@ -71,7 +71,7 @@ class Cell
         $this->yCoordinate = $yCoordinate;
     }
 
-    public function getYCoordinate(): int
+    public function getYCoordinate(): ?int
     {
         return $this->yCoordinate;
     }
@@ -81,7 +81,7 @@ class Cell
         $this->cellstate = $cellstate;
     }
 
-    public function getCellstate(): string
+    public function getCellstate(): ?string
     {
         return $this->cellstate;
     }

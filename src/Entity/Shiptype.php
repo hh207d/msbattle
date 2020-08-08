@@ -45,6 +45,12 @@ class Shiptype
      */
     private $length;
 
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,7 +61,7 @@ class Shiptype
         $this->name = $name;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -65,7 +71,7 @@ class Shiptype
         $this->length = $length;
     }
 
-    public function getLength(): int
+    public function getLength(): ?int
     {
         return $this->length;
     }

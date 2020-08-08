@@ -37,9 +37,21 @@ class Ship
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="ships")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $game;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Shiptype::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
+
+    public function __toString()
+    {
+        return strval($this->getId());
+    }
+
 
     public function getId(): ?int
     {
@@ -51,7 +63,7 @@ class Ship
         $this->state = $state;
     }
 
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
@@ -64,6 +76,18 @@ class Ship
     public function setGame(?Game $game): self
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getType(): ?Shiptype
+    {
+        return $this->type;
+    }
+
+    public function setType(?Shiptype $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

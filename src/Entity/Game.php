@@ -63,6 +63,11 @@ class Game
         $this->ships = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return strval($this->getId());
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,7 +78,7 @@ class Game
         $this->sizeX = $sizeX;
     }
 
-    public function getSizeX(): int
+    public function getSizeX(): ?int
     {
         return $this->sizeX;
     }
@@ -83,7 +88,7 @@ class Game
         $this->sizeY = $sizeY;
     }
 
-    public function getSizeY(): int
+    public function getSizeY(): ?int
     {
         return $this->sizeY;
     }
@@ -93,7 +98,7 @@ class Game
         $this->state = $state;
     }
 
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }

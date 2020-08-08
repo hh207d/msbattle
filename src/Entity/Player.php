@@ -45,7 +45,7 @@ class Player
         $this->username = $username;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }

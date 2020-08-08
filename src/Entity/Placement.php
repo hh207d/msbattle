@@ -61,7 +61,7 @@ class Placement
         $this->xcoord = $xcoord;
     }
 
-    public function getXcoord(): int
+    public function getXcoord(): ?int
     {
         return $this->xcoord;
     }
@@ -71,7 +71,7 @@ class Placement
         $this->ycoord = $ycoord;
     }
 
-    public function getYcoord(): int
+    public function getYcoord(): ?int
     {
         return $this->ycoord;
     }
@@ -81,7 +81,7 @@ class Placement
         $this->orientation = $orientation;
     }
 
-    public function getOrientation(): string
+    public function getOrientation(): ?string
     {
         return $this->orientation;
     }

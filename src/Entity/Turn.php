@@ -53,7 +53,7 @@ class Turn
         $this->xcoord = $xcoord;
     }
 
-    public function getXcoord(): int
+    public function getXcoord(): ?int
     {
         return $this->xcoord;
     }
@@ -63,7 +63,7 @@ class Turn
         $this->ycoord = $ycoord;
     }
 
-    public function getYcoord(): int
+    public function getYcoord(): ?int
     {
         return $this->ycoord;
     }

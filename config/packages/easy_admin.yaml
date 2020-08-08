@@ -43,6 +43,7 @@ easy_admin:
         fields:
           - { property: 'id'}
           - { property: 'state'}
+          - { property: 'type'}
     Shiptype:
       class: App\Entity\Shiptype
       list:
