@@ -31,7 +31,10 @@ services:
         autowire: true
         tags:
             - { name: kernel.view }
-
+    App\EventSubscriber\AddShipsToGameSubscriber:
+        autowire: true
+        tags:
+            - { name: kernel.view }
 
 
     # add more service definitions when explicit configuration is needed

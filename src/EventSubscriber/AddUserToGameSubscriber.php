@@ -30,7 +30,6 @@ class AddUserToGameSubscriber implements EventSubscriberInterface
         {
             return;
         }
-        $token = $this->security->getToken();
         $user = $this->security->getUser();
         $game->setUser($user);
 
