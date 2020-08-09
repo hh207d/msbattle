@@ -73,8 +73,8 @@ easy_admin:
         title: 'List of Turns'
         fields:
           - { property: 'id'}
-          - { property: 'x'}
-          - { property: 'y'}
+          - { property: 'xcoord'}
+          - { property: 'ycoord'}
           - { property: 'game'}
           - { property: 'player'}
   design:
