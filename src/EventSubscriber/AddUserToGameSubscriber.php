@@ -24,21 +24,15 @@ class AddUserToGameSubscriber implements EventSubscriberInterface
 
     public function addUser(ViewEvent $event)
     {
-        $this->logger->log('info','HURRRRRRR!');
         $game = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
-        $this->logger->log('info','DURRRRRRR!');
         if(!$game instanceof Game || Request::METHOD_POST !== $method)
         {
-            $this->logger->log('info','MURRRRRRR!');
             return;
         }
         $token = $this->security->getToken();
         $user = $this->security->getUser();
-        $this->logger->log('info',"token hier so--> " . $token );
-        $this->logger->log('info',"hier so--> " . $user );
         $game->setUser($user);
-        $this->logger->log('info','XURRRRRRR!');
 
     }
 
