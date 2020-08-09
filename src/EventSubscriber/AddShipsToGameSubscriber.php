@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
@@ -21,19 +20,17 @@ class AddShipsToGameSubscriber implements EventSubscriberInterface
     private $security;
     private $logger;
     private $entityManager;
-    private $requestStack;
+
 
     public function __construct(
         Security $security,
         LoggerInterface $logger,
-        EntityManagerInterface $entityManager,
-        RequestStack $requestStack
+        EntityManagerInterface $entityManager
     )
     {
         $this->security = $security;
         $this->logger = $logger;
         $this->entityManager = $entityManager;
-        $this->requestStack = $requestStack;
     }
 
     public function addShips(ViewEvent $event)
@@ -47,9 +44,6 @@ class AddShipsToGameSubscriber implements EventSubscriberInterface
 
         $this->entityManager->getRepository(Shiptype::class);
         $shipTypes = $this->entityManager->getRepository(Shiptype::class)->findAll();
-        $request = $this->requestStack->getCurrentRequest();
-
-
 
         $this->logger->log('info', 'WHAAAAAT?');
         foreach ($shipTypes as $shipType)
