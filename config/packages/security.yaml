@@ -14,14 +14,10 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        api_frontend:
-            pattern: ^/api/games
-            stateless: true
-            anonymous: true
         api:
             pattern: ^/api
             stateless: true
-            anonymous: true
+            anonymous: false
             provider: app_user_provider
             guard:
                 authenticators:
@@ -60,5 +56,4 @@ security:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/api/games, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
