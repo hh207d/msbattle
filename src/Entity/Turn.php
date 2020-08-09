@@ -50,10 +50,10 @@ class Turn
     private $game;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="turns")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="turns")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $player;
+    private $user;
 
 
     public function __toString()
@@ -98,14 +98,14 @@ class Turn
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getUser(): ?User
     {
-        return $this->player;
+        return $this->user;
     }
 
-    public function setPlayer(?Player $player): self
+    public function setUser(?User $user): self
     {
-        $this->player = $player;
+        $this->user = $user;
 
         return $this;
     }

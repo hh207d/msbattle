@@ -57,17 +57,18 @@ class Placement
      */
     private $game;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="placements")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $player;
 
     /**
      * @ORM\OneToOne(targetEntity=Ship::class, inversedBy="placement", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $ship;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="placements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __toString()
     {
@@ -121,18 +122,6 @@ class Placement
         return $this;
     }
 
-    public function getPlayer(): ?Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(?Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
-    }
-
     public function getShip(): ?Ship
     {
         return $this->ship;
@@ -141,6 +130,18 @@ class Placement
     public function setShip(Ship $ship): self
     {
         $this->ship = $ship;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

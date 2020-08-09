@@ -37,13 +37,14 @@ easy_admin:
           - { property: 'game'}
           - { property: 'player'}
           - { property: 'ship'}
-    Player:
-      class: App\Entity\Player
+    User:
+      class: App\Entity\User
       list:
-        title: 'List of Players'
+        title: 'List of Users'
         fields:
           - { property: 'id'}
-          - { property: 'username'}
+          - { property: 'email'}
+          - { property: 'roles'}
           - { property: 'ships'}
           - { property: 'placements'}
           - { property: 'cells'}
@@ -81,7 +82,7 @@ easy_admin:
     menu:
       - Game
       - Ship
-      - Player
+      - User
       - Cell
       - Placement
       - Turn

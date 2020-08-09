@@ -63,12 +63,13 @@ class Cell
     private $game;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="cells")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cells")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $player;
+    private $user;
 
-    public function __toString()
+
+    public function __toString(): string
     {
         return strval($this->getId());
     }
@@ -133,14 +134,14 @@ class Cell
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getUser(): ?User
     {
-        return $this->player;
+        return $this->user;
     }
 
-    public function setPlayer(?Player $player): self
+    public function setUser(?User $user): self
     {
-        $this->player = $player;
+        $this->user = $user;
 
         return $this;
     }
