@@ -14,6 +14,22 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api_frontend:
+            pattern: ^/api/games
+            stateless: true
+            anonymous: true
+        api:
+            pattern: ^/api
+            stateless: true
+            anonymous: false
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        register:
+            pattern: ^/register
+            stateless: true
+            anonymous: true
         main:
             anonymous: lazy
             provider: app_user_provider
@@ -22,6 +38,13 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+            json_login:
+                check_path: /authentication_token
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -36,3 +59,6 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/games, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
