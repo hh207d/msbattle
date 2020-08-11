@@ -71,14 +71,10 @@ class User implements UserInterface
         $this->ships = new ArrayCollection();
         $this->turns = new ArrayCollection();
     }
+
     public function __toString(): string
     {
         return $this->getEmail();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEmail(): ?string
@@ -93,6 +89,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -100,7 +101,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -127,7 +128,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self

@@ -36,7 +36,7 @@ class AddUserToPlacementSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['addUser', EventPriorities::PRE_WRITE]
+            KernelEvents::VIEW => ['addUser', EventPriorities::PRE_VALIDATE]
         ];
     }
 }

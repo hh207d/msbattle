@@ -11,7 +11,7 @@ class PlacementInsideOceanValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        /* @var $constraint \App\Validator\PlacementInsideOcean */
+        /* @var $constraint PlacementInsideOcean */
 
 
         /** @var Placement $value */
@@ -19,8 +19,7 @@ class PlacementInsideOceanValidator extends ConstraintValidator
             return;
         }
         $checker = new InsideOceanChecker();
-        if($checker->check($value))
-        {
+        if ($checker->check($value)) {
             return;
         }
 

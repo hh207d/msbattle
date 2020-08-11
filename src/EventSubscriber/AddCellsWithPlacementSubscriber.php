@@ -32,13 +32,18 @@ class AddCellsWithPlacementSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::VIEW => ['addCells', EventPriorities::POST_WRITE]
+        ];
+    }
 
     public function addCells(ViewEvent $event)
     {
         $placement = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
-        if(!$placement instanceof Placement || Request::METHOD_POST !== $method)
-        {
+        if (!$placement instanceof Placement || Request::METHOD_POST !== $method) {
             return;
         }
         $game = $placement->getGame();
@@ -47,8 +52,7 @@ class AddCellsWithPlacementSubscriber implements EventSubscriberInterface
 
         $coordinatesGetter = new CoordinatesGetter();
         $coordinatesToUpdate = $coordinatesGetter->getPointsToUpdate($placement);
-        foreach ($coordinatesToUpdate as $coordinate)
-        {
+        foreach ($coordinatesToUpdate as $coordinate) {
             $cell = new Cell();
             $cell->setGame($game);
             $cell->setUser($user);
@@ -59,12 +63,5 @@ class AddCellsWithPlacementSubscriber implements EventSubscriberInterface
             $this->entityManager->persist($cell);
         }
         $this->entityManager->flush();
-    }
-
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::VIEW => ['addCells', EventPriorities::POST_WRITE]
-        ];
     }
 }

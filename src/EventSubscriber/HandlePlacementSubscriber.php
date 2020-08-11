@@ -3,12 +3,18 @@
 namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Entity\Cell;
+use App\Entity\Game;
 use App\Entity\Placement;
+use App\Entity\Ship;
+use App\Entity\User;
+use App\Helper\GameState;
+use App\Helper\ShipState;
+use App\Utils\CoordinatesGetter;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
@@ -18,53 +24,104 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
     private $security;
     private $logger;
     private $entityManager;
-    private $requestStack;
 
     public function __construct(
         Security $security,
         LoggerInterface $logger,
-        EntityManagerInterface $entityManager,
-        RequestStack $requestStack
+        EntityManagerInterface $entityManager
     )
     {
         $this->security = $security;
         $this->logger = $logger;
         $this->entityManager = $entityManager;
-        $this->requestStack = $requestStack;
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::VIEW => ['handlePlacement', EventPriorities::POST_WRITE]
+        ];
     }
 
     public function handlePlacement(ViewEvent $event)
     {
         $placement = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
-
-        if(!$placement instanceof Placement || Request::METHOD_POST !== $method)
-        {
+        if (!$placement instanceof Placement || Request::METHOD_POST !== $method) {
             return;
         }
 
-        // Gedanken zu events:
-        // welche Überprüfung ist wann sinnvoll?
-        // -> ist einplacement überhaupt möglich gerade? (anderer Spieler ist an der Reihe / SPiel ist nicht im placement modus / ...)
-        // -> ist ein placement valide (Schiff nicht richtig plaziert / anderes Schiff belegt Zellen / ..)
+        $otherShip = $placement->getShip();
+        $otherShip->setState(ShipState::STATE_FLOATING);
+        $this->entityManager->persist($otherShip);
+        $this->entityManager->flush();
+        $game = $placement->getGame();
 
-
-        // evaluate placement
-        // if not ok return smthg meaningful (from here? how does this even work?)
-        // else
-        // update ship (state)
-        // set Cells
-        // update game (activeplayer)
-        // let COMP do move ??
-
-
-
+        // TODO: implement COMP, as dor now the other player makes same placement.. :_(
+        // TODO: magic number 1 as COMP
+        $this->doCompMove($game, $placement);
+        $this->handleGameStateChange($game);
+        //
     }
 
-    public static function getSubscribedEvents()
+    private function doCompMove(Game $game, Placement $placement)
     {
-        return [
-            KernelEvents::VIEW => ['handlePlacement', EventPriorities::POST_VALIDATE]
-        ];
+        $enemy = $this->entityManager->getRepository(User::class)->find(1);
+        $compPlacement = new Placement();
+
+        $orientation = $placement->getOrientation();
+        $x = $placement->getXcoord();
+        $y = $placement->getYcoord();
+        $compPlacement->setGame($game);
+        $compPlacement->setUser($enemy);
+        $compPlacement->setXcoord($x);
+        $compPlacement->setYcoord($y);
+        $compPlacement->setOrientation($orientation);
+        $allShips = $game->getShips();
+        foreach ($allShips as $otherShip) {
+
+            $ownType = $placement->getShip()->getType();
+            $compType = $otherShip->getType();
+            $shipUser = $otherShip->getUser();
+            $compUser = $enemy;
+
+            if ($ownType == $compType && $shipUser == $compUser) {
+                $this->logger->log('info', "iffsen? ");
+                $compPlacement->setShip($otherShip);
+                $otherShip->setState(ShipState::STATE_FLOATING);
+                $this->entityManager->persist($otherShip);
+                $this->entityManager->flush();
+
+                $coordinatesGetter = new CoordinatesGetter();
+                $coordinatesToUpdate = $coordinatesGetter->getPointsToUpdate($placement);
+                foreach ($coordinatesToUpdate as $coordinate) {
+                    $cell = new Cell();
+                    $cell->setGame($game);
+                    $cell->setUser($compUser);
+                    $cell->setShip($otherShip);
+                    $cell->setXCoordinate($coordinate[0]);
+                    $cell->setYCoordinate($coordinate[1]);
+                    $cell->setCellstate('STATE_PLACED');
+                    $this->entityManager->persist($cell);
+                }
+                $this->entityManager->flush();
+
+
+            }
+        }
+        $this->entityManager->persist($compPlacement);
+        $this->entityManager->flush();
     }
+
+    private function handleGameStateChange(Game $game)
+    {
+        $sem = $this->entityManager->getRepository(Ship::class);
+        $dockedShips = $sem->findBy(['state' => ShipState::STATE_DOCKED, 'game' => $game]);
+        if (empty($dockedShips)) {
+            $game->setState(GameState::STATE_BATTLE);
+            $this->entityManager->persist($game);
+            $this->entityManager->flush();
+        }
+    }
+
 }

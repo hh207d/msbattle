@@ -6,22 +6,221 @@
 	},
 	"item": [
 		{
+			"name": "requests to beforbidden",
+			"item": [
+				{
+					"name": "add ship",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "helmet123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "helmet",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"state\": \"STATE_DOCKED\",\r\n    \"game\": \"api/games/4\",\r\n    \"type\": \"api/shiptypes/2\",\r\n    \"player\": \"api/players/2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/ships",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"ships"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add player",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "helmet123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "helmet",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Xcoord\": 2,\r\n    \"Ycoord\": 4,\r\n    \"orientation\": \"ORIENTATION_HORIZONTAL\",\r\n    \"game\": \"api/games/4\",\r\n    \"player\": \"api/players/2\",\r\n    \"ship\": \"api/ship/1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/players",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add cell",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "helmet123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "helmet",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"xCoordinate\": 4,\r\n    \"yCoordinate\": 5,\r\n    \"cellstate\": \"STATE_CLEAN\",\r\n    \"ship\": null,\r\n    \"game\": \"api/games/4\",\r\n    \"player\": \"api/players/2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/cells",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cells"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add shiptype",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "helmet123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "helmet",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"length\": 5,\r\n    \"name\": \"My Shiptype\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/shiptypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"shiptypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "list games",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNTUxNDcsImV4cCI6MTU5NzE1ODc0Nywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.Jiud6UWpszYfrXzGP7AcXTW9s7qGmpBvpEXgfGpy5RGCUISv914txOtafnjdM543IJk60lFdrJygFOm-PZH3yIoDydERvU2kLoeB9BqN5aR9O3ZhkumCfsK3p7IMI_j3jIVp3VFDiPh7HhlhPdo5Qwd9PcNmcVFx-Osa0yIrB0ZwPQqE3BcKD3XygYFpwhk16_LioOyHpK650VZFeajQ1Tr9vYDYiMJ4uzWnsXaL0cMsH0zsmsxURucEhyYGVD_uwrkPzsJ6ZWIMbQE8wV-wbw4VxLi92lNxfgYH7Y-H_iXRZrFWBfKp6hioZtLjcO82c_oP-sgqDr0rhGV8XvFfRCtxhfhHNPJ6S2ODFm1rSDk_J-jaCmRYpZ--yHT4A6Ck0OplRX0gK721GzI1NaSBzMRdpJcKEiuRTE5IrmqwibIZFLFa5jHNRqwoih_I8Edwo8H0AP1Uvg5XFfFLQ-eCfMndIMCFcAhxzosbA6YTrcAxxFox973SllTtjBVBtTdBab1vFx8XmrGZnIQS1s1cCTE0soDDQdZx-hdizPfAqTmBBzunCVj5lQyqF2SE0Z-bhK4iPXASvckKUi-slATdJHjWkphfmau3VZb4_d6Sg0r7V_r5Vbm-9B62pEUtz872tBMEQp5HrfyVYZUooTGMRloRgKL2SD_RJgqA1v0PFKs",
 							"type": "string"
 						}
 					]
@@ -53,28 +252,30 @@
 			"response": []
 		},
 		{
-			"name": "add ship",
+			"name": "add game",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
 							"type": "string"
 						}
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTY5OTg3NzAsImV4cCI6MTU5NzAwMjM3MCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.nN85Iu6H0dU3cjBZezbRm-lXFVk6D0lEk40g03edRqZH8gAW73mpP8TJchJogHpSv41_xcyQ9UvkGeio4LdoqjSeCYk_RmEvWKnYPyjgL9wkf9t6_m4FlxzenjXuOUu3FURrpaOJgX40wWwXb_DXEEy7eODjE-gPnvMbYvLPxgE5VmibvWWRrAe5FkXvooiaS-gQ86GVPnTyxsOZI8obNyxsDFCG4a5ZfhUchfX_0KB9dKTOYXcef-IRY8Mgu31FB9quwYsEVfcFecL9Ew_NkV9A30Zps6czuRS1NF-QGd66TUR2RhFrGacZF9H6KE0QT1bGJcXbb6H9Jr9dsy9_xb6DCaytP2NQSNM9y5UZ1gEP5JVfaOdP33BjWVjQPQ9ekr6UGw904CnCx5KPQIE5ogmhHyRzPIwlZbF2p7cJW2lKOszsN_mLDooUTi-bzpOwMRDItLMOaFVGHZ8zM028tYLm9jvF1RirSk3AtwNqVmF_-WBwToiReu4vNGsJr9GDQaZF5Xj-JZuOD4gdhRxH4_zzpPZ7j5xjZC_P8BHi5i8mKHENxfN_TqjmKynBItot2MVG1DLsdTwOpoqIsBmAJTLf7a8o49QXE5tC54I7XNalwdjIIkmO74zTTnrWhp1N-jHrgqlrALmDcDEImrgvy9FjRTaYIOf05V_TRNKjdUs",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"sizeX\": 8,\r\n    \"sizeY\": 8,\r\n    \"state\": \"STATE_STARTED\"\r\n}",
+					"raw": "{\r\n    \"sizeX\": 100,\r\n    \"sizeY\": 100,\r\n    \"state\": \"STATE_STARTED\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -97,151 +298,14 @@
 			"response": []
 		},
 		{
-			"name": "add ship",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"state\": \"STATE_DOCKED\",\r\n    \"game\": \"api/games/4\",\r\n    \"type\": \"api/shiptypes/2\",\r\n    \"player\": \"api/players/2\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/ships",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"ships"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add player",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Xcoord\": 2,\r\n    \"Ycoord\": 4,\r\n    \"orientation\": \"ORIENTATION_HORIZONTAL\",\r\n    \"game\": \"api/games/4\",\r\n    \"player\": \"api/players/2\",\r\n    \"ship\": \"api/ship/1\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/players",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"players"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add cell",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"xCoordinate\": 4,\r\n    \"yCoordinate\": 5,\r\n    \"cellstate\": \"STATE_CLEAN\",\r\n    \"ship\": null,\r\n    \"game\": \"api/games/4\",\r\n    \"player\": \"api/players/2\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/cells",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"cells"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "add placement",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
 							"type": "string"
 						}
 					]
@@ -250,7 +314,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 4,\r\n    \"ycoord\": 5,\r\n    \"orientation\": \"ORIENTATION_HORIZONTAL\",\r\n    \"game\": \"api/games/4\",\r\n    \"player\": \"api/players/2\",\r\n    \"ship\": \"api/ships/2\"\r\n}",
+					"raw": "{\r\n    \"xcoord\": 4,\r\n    \"ycoord\": 4,\r\n    \"orientation\": \"ORIENTATION_HORIZONTAL\",\r\n    \"game\": \"api/games/25\",\r\n    \"ship\": \"api/ships/157\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -276,16 +340,11 @@
 			"name": "add turn",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
 							"type": "string"
 						}
 					]
@@ -294,7 +353,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 4,\r\n    \"ycoord\": 5,\r\n    \"game\": \"api/games/4\",\r\n    \"player\": \"api/players/2\"\r\n}",
+					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 0,\r\n    \"game\": \"api/games/26\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -311,50 +370,6 @@
 					"path": [
 						"api",
 						"turns"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add shiptype",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n    \"length\": 5,\r\n    \"name\": \"My Shiptype\"\r\n\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/shiptypes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"shiptypes"
 					]
 				}
 			},
@@ -385,7 +400,7 @@
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "d@a.a",
+							"value": "ttt@a.a",
 							"type": "text"
 						},
 						{
@@ -421,7 +436,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"d@a.a\",\n    \"password\": \"sehrgeheim\"\n}",
+					"raw": "{\n    \"email\": \"ttt@a.a\",\n    \"password\": \"sehrgeheim\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -443,22 +458,62 @@
 			"response": []
 		},
 		{
-			"name": "api",
+			"name": "get game",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
+							"type": "string"
+						}
+					]
 				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api",
+					"raw": "http://localhost:8000/api/games/25",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"api"
+						"api",
+						"games",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get cell (status)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/cells/312",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cells",
+						"312"
 					]
 				}
 			},

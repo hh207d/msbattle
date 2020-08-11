@@ -82,14 +82,14 @@ class Ship
         return $this->id;
     }
 
-    public function setState(string $state): void
-    {
-        $this->state = $state;
-    }
-
     public function getState(): ?string
     {
         return $this->state;
+    }
+
+    public function setState(string $state): void
+    {
+        $this->state = $state;
     }
 
     public function getGame(): ?Game

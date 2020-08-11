@@ -21,5 +21,4 @@ class PlacementInsideOcean extends Constraint
     }
 
 
-
 }

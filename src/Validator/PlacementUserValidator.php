@@ -2,23 +2,25 @@
 
 namespace App\Validator;
 
-use App\Utils\NoCollisionChecker;
+use App\Entity\Placement;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class PlacementNoCollisionValidator extends ConstraintValidator
+class PlacementUserValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        /* @var $constraint PlacementNoCollision */
+        /* @var $constraint PlacementUser */
 
+        /** @var Placement $value */
         if (null === $value || '' === $value) {
             return;
         }
-        $checker = new NoCollisionChecker();
-        if ($checker->check($value)) {
+        $user = $value->getUser();
+        if ($user === $value->getShip()->getUser() && $user === $value->getGame()->getUser()) {
             return;
         }
+
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $value)
             ->addViolation();

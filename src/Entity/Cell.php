@@ -80,19 +80,14 @@ class Cell
         return $this->id;
     }
 
-    public function setXCoordinate(int $xCoordinate): void
-    {
-        $this->xCoordinate = $xCoordinate;
-    }
-
     public function getXCoordinate(): ?int
     {
         return $this->xCoordinate;
     }
 
-    public function setYCoordinate(int $yCoordinate): void
+    public function setXCoordinate(int $xCoordinate): void
     {
-        $this->yCoordinate = $yCoordinate;
+        $this->xCoordinate = $xCoordinate;
     }
 
     public function getYCoordinate(): ?int
@@ -100,14 +95,19 @@ class Cell
         return $this->yCoordinate;
     }
 
-    public function setCellstate(string $cellstate): void
+    public function setYCoordinate(int $yCoordinate): void
     {
-        $this->cellstate = $cellstate;
+        $this->yCoordinate = $yCoordinate;
     }
 
     public function getCellstate(): ?string
     {
         return $this->cellstate;
+    }
+
+    public function setCellstate(string $cellstate): void
+    {
+        $this->cellstate = $cellstate;
     }
 
     public function getShip(): ?Ship

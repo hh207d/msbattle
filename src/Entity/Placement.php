@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\GameState;
+use App\Helper\ShipState;
 use App\Validator\PlacementInsideOcean;
 use App\Validator\PlacementNoCollision;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ApiResource(iri="http://schema.org/Thing")
  * @PlacementNoCollision()
- *  @PlacementInsideOcean()
+ * @PlacementInsideOcean()
  */
 class Placement
 {
@@ -84,19 +86,14 @@ class Placement
         return $this->id;
     }
 
-    public function setXcoord(int $xcoord): void
-    {
-        $this->xcoord = $xcoord;
-    }
-
     public function getXcoord(): ?int
     {
         return $this->xcoord;
     }
 
-    public function setYcoord(int $ycoord): void
+    public function setXcoord(int $xcoord): void
     {
-        $this->ycoord = $ycoord;
+        $this->xcoord = $xcoord;
     }
 
     public function getYcoord(): ?int
@@ -104,14 +101,28 @@ class Placement
         return $this->ycoord;
     }
 
-    public function setOrientation(string $orientation): void
+    public function setYcoord(int $ycoord): void
     {
-        $this->orientation = $orientation;
+        $this->ycoord = $ycoord;
     }
 
     public function getOrientation(): ?string
     {
         return $this->orientation;
+    }
+
+    public function setOrientation(string $orientation): void
+    {
+        $this->orientation = $orientation;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Nope, game is not in placement mode!")
+     * @return bool
+     */
+    public function isGameInPlacementMode()
+    {
+        return $this->getGame()->getState() === GameState::STATE_STARTED;
     }
 
     public function getGame(): ?Game
@@ -126,6 +137,15 @@ class Placement
         return $this;
     }
 
+    /**
+     * @Assert\IsTrue(message="Nope, ship is not docked!")
+     * @return bool
+     */
+    public function isShipDocked()
+    {
+        return $this->getShip()->getState() === ShipState::STATE_DOCKED;
+    }
+
     public function getShip(): ?Ship
     {
         return $this->ship;
@@ -136,6 +156,15 @@ class Placement
         $this->ship = $ship;
 
         return $this;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Nope, it is not your ship!")
+     * @return bool
+     */
+    public function isUsersShip()
+    {
+        return $this->getShip()->getUser() === $this->getUser();
     }
 
     public function getUser(): ?User
@@ -149,4 +178,15 @@ class Placement
 
         return $this;
     }
+
+    /**
+     * @Assert\IsTrue(message="Nope, it is not your game!")
+     * @return bool
+     */
+    public function isUsersGame()
+    {
+        return $this->getGame()->getUser() === $this->getUser();
+    }
+
+
 }

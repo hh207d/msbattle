@@ -7,16 +7,11 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class PlacementNoCollision extends Constraint
+class PlacementUser extends Constraint
 {
     /*
      * Any public properties become valid options for the annotation.
      * Then, use these in your validator class.
      */
-    public $message = 'Ship does collide with other object..';
-
-    public function getTargets()
-    {
-        return self::CLASS_CONSTRAINT;
-    }
+    public $message = 'User does not match.';
 }
