@@ -64,7 +64,7 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['handlePlacement', EventPriorities::POST_WRITE]
+            KernelEvents::VIEW => ['handlePlacement', EventPriorities::POST_VALIDATE]
         ];
     }
 }

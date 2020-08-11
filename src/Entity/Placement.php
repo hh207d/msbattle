@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Validator\PlacementInsideOcean;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @ApiResource(iri="http://schema.org/Thing")
+ * @PlacementInsideOcean()
  */
 class Placement
 {
