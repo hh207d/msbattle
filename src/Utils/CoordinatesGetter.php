@@ -12,7 +12,7 @@ class CoordinatesGetter
     public function getPointsToUpdate(Placement $placement)
     {
         $result = [];
-        $axisToCountUpIsX = $placement->getOrientation() === Orientation::horizontal;
+        $axisToCountUpIsX = $placement->getOrientation() === Orientation::HORIZONTAL;
         $shipLength = $placement->getShip()->getType()->getLength();
         $xCoord = $placement->getXcoord();
         $yCoord = $placement->getYcoord();

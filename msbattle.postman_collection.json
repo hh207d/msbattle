@@ -220,7 +220,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNTUxNDcsImV4cCI6MTU5NzE1ODc0Nywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.Jiud6UWpszYfrXzGP7AcXTW9s7qGmpBvpEXgfGpy5RGCUISv914txOtafnjdM543IJk60lFdrJygFOm-PZH3yIoDydERvU2kLoeB9BqN5aR9O3ZhkumCfsK3p7IMI_j3jIVp3VFDiPh7HhlhPdo5Qwd9PcNmcVFx-Osa0yIrB0ZwPQqE3BcKD3XygYFpwhk16_LioOyHpK650VZFeajQ1Tr9vYDYiMJ4uzWnsXaL0cMsH0zsmsxURucEhyYGVD_uwrkPzsJ6ZWIMbQE8wV-wbw4VxLi92lNxfgYH7Y-H_iXRZrFWBfKp6hioZtLjcO82c_oP-sgqDr0rhGV8XvFfRCtxhfhHNPJ6S2ODFm1rSDk_J-jaCmRYpZ--yHT4A6Ck0OplRX0gK721GzI1NaSBzMRdpJcKEiuRTE5IrmqwibIZFLFa5jHNRqwoih_I8Edwo8H0AP1Uvg5XFfFLQ-eCfMndIMCFcAhxzosbA6YTrcAxxFox973SllTtjBVBtTdBab1vFx8XmrGZnIQS1s1cCTE0soDDQdZx-hdizPfAqTmBBzunCVj5lQyqF2SE0Z-bhK4iPXASvckKUi-slATdJHjWkphfmau3VZb4_d6Sg0r7V_r5Vbm-9B62pEUtz872tBMEQp5HrfyVYZUooTGMRloRgKL2SD_RJgqA1v0PFKs",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxODM3NzMsImV4cCI6MTU5NzE4NzM3Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.mdNOJ5MsXu_ZnVQlsvaSuRdVSS0cWGNL7EkIGoetnzgrMyGHisg5zt0FgHKydw8jDXmwh_bU-eW3ya1g_jYAfZig5Je3ctL1Cf3XOYsBB4lyPxhzdYgolyc-st_7IJIOawwZQepllguN_f9LIDjqs8aMn2ugmAFTkq_C1dKOcHNhOCu7wP41TQBDaTIE9lFPxy50p1PvGTP79iO01uLksD918ECvC68J0qeRr-PUBhaIB2tg9MhGHSfzRreOhqAVCWQDeuD9oufXqZgP9HjtgCsC-7h002r2naPsfaMWDuD1nuVSo8IJRoJN41pZg-QoVRplJh5Q0h5dIH1dikE8ax8_0eAroRAM3YHO41ZA0ZWTZvF0k02NLCNUeJDbp7ltRvM1Hj9_JELHjprwc0xWOMKh4fpm3ipnJiUgI-MD-NK_7gcv2oPqTXKYi3j6sPyyqwGTd4L_7QSj1gXIFNINWwuJgO3cnF2w_6XWeG5eWoDthfp8CheJf3FqumQ9LIEa0BsIiM89qPxp-_9BxpkbbsyCNVmpOkZoZY65ibhAJakmB2eTJL4jb289RecLsywg_S8AGpEeS_ryaqEOA4Lbm8aHvgNQ3Y4mMBUgugJ5766Baxq3uB6igoLGOe7eJ8iYNGE5WtHuKzMAocpFFNwHyPVGjxtrkmtnHOiiHhQGKn8",
 							"type": "string"
 						}
 					]
@@ -259,7 +259,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxODI2MjksImV4cCI6MTU5NzE4NjIyOSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.piVaYfAauEeFIIyXIf4cKNGq2jBRJMj4E2dgTXUWf5ksLzUYstYxeNOy8FnwcV7jTa6LQr2WgflN27abqXbaYeBawcUIR0nKO0S4B5GhGMORMI0UVQub_-gkwAlloGC4StY5Fu_U9a1UTKfnuFIRZ8cViA0C9DUCaQ7rrQQ303niyWQYCcCfo9n3-18ex9uXpD79I7AMTssoOEVzAkV3SsTxpWMbZdJwpUKDvfoVWGYnWKmOPF0cTU7uM9hMkGGX5LEzQ8JtWn1H4Q9R5UUpJs6LVskdC2zuW-SUWuosvbc9aZvYN7lbL0jJfjnAYN8ucWdWb0M8a9BKmCKNtFjKCVzPZ4YugHHiAFg-_bGA6gRSVwWhWfIF2yxOpw3ohpyi7uSHCJZCsq112HLJ1MzJoDRdwtYSNSgLaTh0DSR80NJ66estguqtUKwPrsTcghOmwx5Q_9ww2-umQS_keA_K6sO6FTwdDd8DNvR_t5E2E66pXV50ve9ZHt1huh74DrSe1ZFwnAf97R_NmsPhph627RDmr0I43hhcKS8xOmhbKeXwcHANZealu--9RmShekNxN91cjlZiHsKDG-wtSC9jWqSs_p5AY75yfVft7EvQZoaRTv0xxKYuAyBlvDn2OSy6VjTYzieILtwJiKd-foOaY9MzrpJiQN-aEAhUfqJImCQ",
 							"type": "string"
 						}
 					]
@@ -275,7 +275,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"sizeX\": 100,\r\n    \"sizeY\": 100,\r\n    \"state\": \"STATE_STARTED\"\r\n}",
+					"raw": "{\r\n    \"sizeX\": 5,\r\n    \"sizeY\": 5,\r\n    \"state\": \"STATE_STARTED\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -314,7 +314,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 4,\r\n    \"ycoord\": 4,\r\n    \"orientation\": \"ORIENTATION_HORIZONTAL\",\r\n    \"game\": \"api/games/25\",\r\n    \"ship\": \"api/ships/157\"\r\n}",
+					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 0,\r\n    \"orientation\": \"ORIENTATION_HORIZONTAL\",\r\n    \"game\": \"api/games/28\",\r\n    \"ship\": \"api/ships/170\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -353,7 +353,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 0,\r\n    \"game\": \"api/games/26\"\r\n\r\n}",
+					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 2,\r\n    \"game\": \"api/games/28\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -473,7 +473,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/games/25",
+					"raw": "http://localhost:8000/api/games/28",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -482,7 +482,7 @@
 					"path": [
 						"api",
 						"games",
-						"25"
+						"28"
 					]
 				}
 			},
