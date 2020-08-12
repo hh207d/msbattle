@@ -7,6 +7,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Helper\GameState;
 use App\Helper\ShipState;
+use App\Helper\ConstraintMessage;
 use App\Validator\PlacementInsideOcean;
 use App\Validator\PlacementNoCollision;
 use Doctrine\ORM\Mapping as ORM;
@@ -117,7 +118,7 @@ class Placement
     }
 
     /**
-     * @Assert\IsTrue(message="Nope, game is not in placement mode!")
+     * @Assert\IsTrue(message=ConstraintMessage::GAME_NOT_IN_PLACEMENT_MODE)
      * @return bool
      */
     public function isGameInPlacementMode()
@@ -138,7 +139,7 @@ class Placement
     }
 
     /**
-     * @Assert\IsTrue(message="Nope, ship is not docked!")
+     * @Assert\IsTrue(message=ConstraintMessage::SHIP_IS_NOT_DOCKED)
      * @return bool
      */
     public function isShipDocked()
@@ -159,7 +160,7 @@ class Placement
     }
 
     /**
-     * @Assert\IsTrue(message="Nope, it is not your ship!")
+     * @Assert\IsTrue(message=ConstraintMessage::SHIP_IS_NOT_YOURS)
      * @return bool
      */
     public function isUsersShip()
@@ -180,7 +181,7 @@ class Placement
     }
 
     /**
-     * @Assert\IsTrue(message="Nope, it is not your game!")
+     * @Assert\IsTrue(message=ConstraintMessage::GAME_NOT_OWNER)
      * @return bool
      */
     public function isUsersGame()

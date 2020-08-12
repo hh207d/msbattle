@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\CellState;
 use App\Helper\GameState;
+use App\Helper\ConstraintMessage;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -112,7 +114,7 @@ class Turn
     }
 
     /**
-     * @Assert\IsTrue(message="Nope, game is not in placement mode!")
+     * @Assert\IsTrue(message=ConstraintMessage::GAME_NOT_IN_BATTLE_MODE)
      * @return bool
      */
     public function isGameInBattleMode()
@@ -121,7 +123,7 @@ class Turn
     }
 
     /**
-     * @Assert\IsTrue(message="Nope, it is not your game!")
+     * @Assert\IsTrue(message=ConstraintMessage::GAME_NOT_OWNER)
      * @return bool
      */
     public function isUsersGame()
@@ -131,7 +133,18 @@ class Turn
 
     public function isTurnHit()
     {
+
+        $cells = $this->getGame()->getCells();
+
+        foreach ($cells as $cell)
+        {
+            if($cell->getCellstate() == CellState::STATE_PLACED)
+            {
+                return ($this->getXcoord() === $cell->getXCoordinate() && $this->getYcoord() === $cell->getYCoordinate());
+            }
+        }
         return false;
+
     }
 
 }

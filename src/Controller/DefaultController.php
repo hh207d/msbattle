@@ -25,8 +25,7 @@ class DefaultController extends AbstractController
         $playerPlacements = [];
         $opponentPlacements = [];
         $gameState = '';
-        $placeableShipsPlayer = [];
-
+        $placeableShips = [];
         if($gameid)
         {
             $game = $this->getDoctrine()->getRepository(Game::class)->find($gameid);
@@ -36,22 +35,43 @@ class DefaultController extends AbstractController
             );
 
             $gameState = $game->getState();
-            $placeableShips = [];
+
             if($gameState == GameState::STATE_STARTED)
             {
                 $placeableShips = $this->getDoctrine()->getRepository(Ship::class)->findBy(
                     ['game' => $game, 'state' => ShipState::STATE_DOCKED, 'user' => $user]
                 );
             }
-
-
-
-
         }
-        $someValue = '';
+
+        $statisticsResult = [];
+
         if($statistics)
         {
-            $someValue= 'lol';
+            $amountOfGames = 0;
+            $startedGames = 0;
+            $battlingGames = 0;
+            $finishedGames = 0;
+
+            foreach ($games as $game)
+            {
+                $amountOfGames +=1;
+                switch($game->getState())
+                {
+                    case GameState::STATE_STARTED:
+                        $startedGames +=1;
+                        break;
+                    case GameState::STATE_BATTLE:
+                        $battlingGames +=1;
+                        break;
+                    case GameState::STATE_FINISHED:
+                        $finishedGames +=1;
+                }
+
+
+            }
+
+
         }
 
 
@@ -61,7 +81,7 @@ class DefaultController extends AbstractController
             'gameid' => $gameid,
             'playerPlacements' => $playerPlacements,
             'opponentplacements' => $opponentPlacements,
-            'statistics' => $someValue,
+            'statistics' => $statisticsResult,
             'gameState' => $gameState,
             'placeableShips' => $placeableShips,
         ]);
