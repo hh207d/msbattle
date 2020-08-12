@@ -30,6 +30,7 @@ class DefaultController extends AbstractController
         if($gameid)
         {
             $game = $this->getDoctrine()->getRepository(Game::class)->find($gameid);
+            $user = $game->getUser();
             $placements = $this->getDoctrine()->getRepository(Placement::class)->findBy(
                 ['game' => $game, 'user' => $game->getUser()]
             );
@@ -39,7 +40,7 @@ class DefaultController extends AbstractController
             if($gameState == GameState::STATE_STARTED)
             {
                 $placeableShips = $this->getDoctrine()->getRepository(Ship::class)->findBy(
-                    ['game' => $game, 'state' => ShipState::STATE_DOCKED]
+                    ['game' => $game, 'state' => ShipState::STATE_DOCKED, 'user' => $user]
                 );
             }
 
