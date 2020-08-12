@@ -20,13 +20,19 @@ class DefaultController extends AbstractController
     public function index(Request $request)
     {
         $gameid = $request->query->get('gameid');
-        $statistics = $request->query->get('statistics');
+
         $games =$this->getDoctrine()->getRepository(Game::class)->findAll();
 
         $playerPlacements = [];
         $turns = [];
         $gameState = '';
         $placeableShips = [];
+        $amountOfGames = 0;
+        $startedGames = 0;
+        $battlingGames = 0;
+        $finishedGames = 0;
+
+
         if($gameid)
         {
             $game = $this->getDoctrine()->getRepository(Game::class)->find($gameid);
@@ -51,13 +57,7 @@ class DefaultController extends AbstractController
             }
 
         }
-
-        $amountOfGames = 0;
-        $startedGames = 0;
-        $battlingGames = 0;
-        $finishedGames = 0;
-
-        if($statistics)
+        else
         {
 
 
