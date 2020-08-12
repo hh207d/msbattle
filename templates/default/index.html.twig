@@ -31,15 +31,11 @@
         </div>
         <div id="righttcolumn" style="flex-grow: 10">
             {% if gameid is empty %}
-                {% if not statistics is empty %}
-                    <h2>hier so: {{ statistics }}</h2>
-                {% endif %}
-                {% if statistics is empty %}
-                    <h2>Please choose a game...</h2>
-                {% endif %}
-
-
-
+                <p>Statistik:</p>
+                <p>Anzahl Spiele gesamt: {{ amountOfGames }}</p>
+                <p>gestartete Spiele: {{ startedGames }}</p>
+                <p> Spiele im Kampfmodus: {{ battlingGames }}</p>
+                <p> Abgeschlossene Spiele; {{ finishedGames }}</p>
             {% endif %}
             {% if not gameid is empty %}
                 {% if gameState == 'STATE_STARTED' %}
@@ -59,7 +55,13 @@
                     </div>
                 {% endif %}
                 {% if gameState == 'STATE_BATTLE' %}
-                   <p>drgkjdfgkj</p>
+                    <h2>Dieses Spiel ist im 'Battle Modus'</h2>
+                   <h3>Bisherige Züge:</h3>
+                    <div id="turns">
+                        {% for turn in turns %}
+                            <p> {{ turn.xcoord }} / {{ turn.ycoord }} - {{ turn.turnHit }}</p>
+                        {% endfor %}
+                    </div>
                 {% endif %}
 
             {% endif %}
