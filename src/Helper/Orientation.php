@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Utils;
+namespace App\Helper;
 
 
 abstract class Orientation

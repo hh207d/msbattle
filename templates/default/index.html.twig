@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MSBattle{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper" style="display: flex; flex-direction: column; background-color: #0B7FC7">
+    <div id="top">
+        <h1>MSBattle (a simple battleships api demo)</h1>
+    </div>
+    <div id="content" style="display: flex; background-color: #00bb00">
+        <div id="letftcolumn" style="flex-grow: 2">
+            <p>Login</p>
+            <p>(or user info)</p>
+            <hr>
+            <p>Games</p>
+            <p>game1</p>
+            <p>game2</p>
+            <p>game3</p>
+        </div>
+        <div id="righttcolumn" style="flex-grow: 10">
+<!--
+            <h2>Oceans</h2>
+            <div id="oceans" style="display: flex;">
+
+                <div id="ownocean" style="flex-grow: 6">
+                    kjkljkl
+                </div>
+                <div id="opponentocean" style="flex-grow: 6">
+                    lkjlkj
+                </div>
+            </div>
+-->
+            <h2>Placements</h2>
+            <div id="placements" style="display: flex;">
+                <div id="ownplacements" style="flex-grow: 6">
+                    kjkljkl
+                </div>
+                <div id="opponentplacements" style="flex-grow: 6">
+                    lkjlkj
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer" style="background-color: #7db9da">
+        <p>this is an interesting footer..</p>
+    </div>
+
+</div>
+{% endblock %}
