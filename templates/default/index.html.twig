@@ -9,46 +9,61 @@
 </style>
 
 <div class="example-wrapper" style="display: flex; flex-direction: column; background-color: #0B7FC7">
-    <div id="top">
-        <h1>MSBattle (a simple battleships api demo)</h1>
+    <div id="top" style="">
+        <h1><a href="/">MSBattle</a> (info page)</h1>
     </div>
     <div id="content" style="display: flex; background-color: #00bb00">
         <div id="letftcolumn" style="flex-grow: 2">
-            <p>Login</p>
-            <p>(or user info)</p>
-            <hr>
-            <p>Games</p>
-            <p>game1</p>
-            <p>game2</p>
-            <p>game3</p>
+
+            <div style="padding-left: 20px;">
+                <p style="font-weight: bold">Available Games</p>
+
+                {% for game in games %}
+                    <p><a href="/?gameid={{ game.id }}">Game No. {{ game.id }}</a></p>
+                {% endfor %}
+            </div>
+            <hr/>
+            <div style="padding-left: 20px;">
+                <p style="font-weight: bold"><a href="/?statistics=all">Statistics</a></p>
+            </div>
+
+
         </div>
         <div id="righttcolumn" style="flex-grow: 10">
-<!--
-            <h2>Oceans</h2>
-            <div id="oceans" style="display: flex;">
+            {% if gameid is empty %}
+                {% if not statistics is empty %}
+                    <h2>hier so: {{ statistics }}</h2>
+                {% endif %}
+                {% if statistics is empty %}
+                    <h2>Please choose a game...</h2>
+                {% endif %}
 
-                <div id="ownocean" style="flex-grow: 6">
-                    kjkljkl
+
+
+            {% endif %}
+            {% if not gameid is empty %}
+                {% if gameState == 'STATE_STARTED' %}
+                    <h2>Game started!!!!!!</h2>
+                    <p>plz set the remaining ships:</p>
+                    {% for placeableShip in placeableShips %}
+                        <p>id: {{ placeableShip.id }} - {{ placeableShip.type.name }} (length: {{ placeableShip.type.length }})</p>
+                    {% endfor %}
+                {% endif %}
+
+                <h2>Placements for Game No. {{ gameid }}</h2>
+                <div id="placements" style="display: flex;">
+                    <div id="playerPlacements" style="flex-grow: 6;padding-left: 20px;">
+                        {% for playerPlacement in playerPlacements %}
+                            <p> {{ playerPlacement.id }}</p>
+                        {% endfor %}
+
+                    </div>
                 </div>
-                <div id="opponentocean" style="flex-grow: 6">
-                    lkjlkj
-                </div>
-            </div>
--->
-            <h2>Placements</h2>
-            <div id="placements" style="display: flex;">
-                <div id="ownplacements" style="flex-grow: 6">
-                    kjkljkl
-                </div>
-                <div id="opponentplacements" style="flex-grow: 6">
-                    lkjlkj
-                </div>
-            </div>
+            {% endif %}
+
         </div>
     </div>
-    <div id="footer" style="background-color: #7db9da">
-        <p>this is an interesting footer..</p>
-    </div>
+
 
 </div>
 {% endblock %}

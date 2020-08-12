@@ -5,6 +5,7 @@ namespace App\Utils;
 
 
 use App\Entity\Placement;
+use App\Helper\Orientation;
 
 
 class CoordinatesGetter
