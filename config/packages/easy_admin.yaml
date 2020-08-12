@@ -14,7 +14,7 @@ easy_admin:
           - { property: 'yCoordinate'}
           - { property: 'cellstate'}
           - { property: 'ship'}
-          - { property: 'player'}
+          - { property: 'user'}
     Game:
       class: App\Entity\Game
       list:
@@ -35,15 +35,16 @@ easy_admin:
           - { property: 'ycoord'}
           - { property: 'orientation'}
           - { property: 'game'}
-          - { property: 'player'}
+          - { property: 'user'}
           - { property: 'ship'}
-    Player:
-      class: App\Entity\Player
+    User:
+      class: App\Entity\User
       list:
-        title: 'List of Players'
+        title: 'List of Users'
         fields:
           - { property: 'id'}
-          - { property: 'username'}
+          - { property: 'email'}
+          - { property: 'roles'}
           - { property: 'ships'}
           - { property: 'placements'}
           - { property: 'cells'}
@@ -57,7 +58,7 @@ easy_admin:
           - { property: 'state'}
           - { property: 'type'}
           - { property: 'game'}
-          - { property: 'player'}
+          - { property: 'user'}
           - { property: 'placement'}
     Shiptype:
       class: App\Entity\Shiptype
@@ -81,7 +82,7 @@ easy_admin:
     menu:
       - Game
       - Ship
-      - Player
+      - User
       - Cell
       - Placement
       - Turn

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\GameState;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -50,10 +51,10 @@ class Turn
     private $game;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="turns")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="turns")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $player;
+    private $user;
 
 
     public function __toString()
@@ -98,15 +99,39 @@ class Turn
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getUser(): ?User
     {
-        return $this->player;
+        return $this->user;
     }
 
-    public function setPlayer(?Player $player): self
+    public function setUser(?User $user): self
     {
-        $this->player = $player;
+        $this->user = $user;
 
         return $this;
     }
+
+    /**
+     * @Assert\IsTrue(message="Nope, game is not in placement mode!")
+     * @return bool
+     */
+    public function isGameInBattleMode()
+    {
+        return $this->getGame()->getState() === GameState::STATE_BATTLE;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Nope, it is not your game!")
+     * @return bool
+     */
+    public function isUsersGame()
+    {
+        return $this->getGame()->getUser() === $this->getUser();
+    }
+
+    public function isTurnHit()
+    {
+        return false;
+    }
+
 }

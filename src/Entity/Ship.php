@@ -55,15 +55,15 @@ class Ship
     private $cells;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="ships")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $player;
-
-    /**
      * @ORM\OneToOne(targetEntity=Placement::class, mappedBy="ship", cascade={"persist", "remove"})
      */
     private $placement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ships")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -82,14 +82,14 @@ class Ship
         return $this->id;
     }
 
-    public function setState(string $state): void
-    {
-        $this->state = $state;
-    }
-
     public function getState(): ?string
     {
         return $this->state;
+    }
+
+    public function setState(string $state): void
+    {
+        $this->state = $state;
     }
 
     public function getGame(): ?Game
@@ -147,18 +147,6 @@ class Ship
         return $this;
     }
 
-    public function getPlayer(): ?Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(?Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
-    }
-
     public function getPlacement(): ?Placement
     {
         return $this->placement;
@@ -172,6 +160,18 @@ class Ship
         if ($placement->getShip() !== $this) {
             $placement->setShip($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

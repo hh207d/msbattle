@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\GameState;
+use App\Helper\ShipState;
+use App\Validator\PlacementInsideOcean;
+use App\Validator\PlacementNoCollision;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @ApiResource(iri="http://schema.org/Thing")
+ * @PlacementNoCollision()
+ * @PlacementInsideOcean()
  */
 class Placement
 {
@@ -57,17 +63,18 @@ class Placement
      */
     private $game;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="placements")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $player;
 
     /**
      * @ORM\OneToOne(targetEntity=Ship::class, inversedBy="placement", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $ship;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="placements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __toString()
     {
@@ -79,19 +86,14 @@ class Placement
         return $this->id;
     }
 
-    public function setXcoord(int $xcoord): void
-    {
-        $this->xcoord = $xcoord;
-    }
-
     public function getXcoord(): ?int
     {
         return $this->xcoord;
     }
 
-    public function setYcoord(int $ycoord): void
+    public function setXcoord(int $xcoord): void
     {
-        $this->ycoord = $ycoord;
+        $this->xcoord = $xcoord;
     }
 
     public function getYcoord(): ?int
@@ -99,14 +101,28 @@ class Placement
         return $this->ycoord;
     }
 
-    public function setOrientation(string $orientation): void
+    public function setYcoord(int $ycoord): void
     {
-        $this->orientation = $orientation;
+        $this->ycoord = $ycoord;
     }
 
     public function getOrientation(): ?string
     {
         return $this->orientation;
+    }
+
+    public function setOrientation(string $orientation): void
+    {
+        $this->orientation = $orientation;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Nope, game is not in placement mode!")
+     * @return bool
+     */
+    public function isGameInPlacementMode()
+    {
+        return $this->getGame()->getState() === GameState::STATE_STARTED;
     }
 
     public function getGame(): ?Game
@@ -121,16 +137,13 @@ class Placement
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    /**
+     * @Assert\IsTrue(message="Nope, ship is not docked!")
+     * @return bool
+     */
+    public function isShipDocked()
     {
-        return $this->player;
-    }
-
-    public function setPlayer(?Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
+        return $this->getShip()->getState() === ShipState::STATE_DOCKED;
     }
 
     public function getShip(): ?Ship
@@ -144,4 +157,36 @@ class Placement
 
         return $this;
     }
+
+    /**
+     * @Assert\IsTrue(message="Nope, it is not your ship!")
+     * @return bool
+     */
+    public function isUsersShip()
+    {
+        return $this->getShip()->getUser() === $this->getUser();
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Nope, it is not your game!")
+     * @return bool
+     */
+    public function isUsersGame()
+    {
+        return $this->getGame()->getUser() === $this->getUser();
+    }
+
+
 }

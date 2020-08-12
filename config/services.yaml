@@ -27,5 +27,15 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
+    App\EventSubscriber\AddUserToGameSubscriber:
+        autowire: true
+        tags:
+            - { name: kernel.view }
+    App\EventSubscriber\AddShipsToGameSubscriber:
+        autowire: true
+        tags:
+            - { name: kernel.view }
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
