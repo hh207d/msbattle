@@ -6,11 +6,15 @@ a simple battleships-game-api with symfony
 
 
 ## installation
+
 * clone
+
+* // go to project folder, then:
 * composer install
 * php bin/console doctrine:schema:create
 * php bin/console doctrine:fixtures:load
-
+* openssl genrsa -out config/jwt/private.pem -aes256 4096 // passphrase: 9272edf7c56cc77d1fcce1de5b134a06
+* openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem // passphrase: 9272edf7c56cc77d1fcce1de5b134a06
 * symfony serve
 
 ## playing
