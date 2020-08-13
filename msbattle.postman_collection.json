@@ -210,6 +210,136 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "informational requests",
+			"item": [
+				{
+					"name": "get ship information",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/ships/179",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"ships",
+								"179"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get ship type",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/shiptypes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"shiptypes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get game",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/games/30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cell (status)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/cells/312",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cells",
+								"312"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "list games",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -259,7 +389,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxODI2MjksImV4cCI6MTU5NzE4NjIyOSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.piVaYfAauEeFIIyXIf4cKNGq2jBRJMj4E2dgTXUWf5ksLzUYstYxeNOy8FnwcV7jTa6LQr2WgflN27abqXbaYeBawcUIR0nKO0S4B5GhGMORMI0UVQub_-gkwAlloGC4StY5Fu_U9a1UTKfnuFIRZ8cViA0C9DUCaQ7rrQQ303niyWQYCcCfo9n3-18ex9uXpD79I7AMTssoOEVzAkV3SsTxpWMbZdJwpUKDvfoVWGYnWKmOPF0cTU7uM9hMkGGX5LEzQ8JtWn1H4Q9R5UUpJs6LVskdC2zuW-SUWuosvbc9aZvYN7lbL0jJfjnAYN8ucWdWb0M8a9BKmCKNtFjKCVzPZ4YugHHiAFg-_bGA6gRSVwWhWfIF2yxOpw3ohpyi7uSHCJZCsq112HLJ1MzJoDRdwtYSNSgLaTh0DSR80NJ66estguqtUKwPrsTcghOmwx5Q_9ww2-umQS_keA_K6sO6FTwdDd8DNvR_t5E2E66pXV50ve9ZHt1huh74DrSe1ZFwnAf97R_NmsPhph627RDmr0I43hhcKS8xOmhbKeXwcHANZealu--9RmShekNxN91cjlZiHsKDG-wtSC9jWqSs_p5AY75yfVft7EvQZoaRTv0xxKYuAyBlvDn2OSy6VjTYzieILtwJiKd-foOaY9MzrpJiQN-aEAhUfqJImCQ",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -275,7 +405,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"sizeX\": 5,\r\n    \"sizeY\": 5,\r\n    \"state\": \"STATE_STARTED\"\r\n}",
+					"raw": "{\r\n    \"sizeX\": 8,\r\n    \"sizeY\": 8,\r\n    \"state\": \"STATE_STARTED\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -305,7 +435,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -314,7 +444,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 0,\r\n    \"orientation\": \"ORIENTATION_HORIZONTAL\",\r\n    \"game\": \"api/games/28\",\r\n    \"ship\": \"api/ships/170\"\r\n}",
+					"raw": "{\r\n    \"xcoord\": 2,\r\n    \"ycoord\": 1,\r\n    \"orientation\": \"ORIENTATION_VERTICAL\",\r\n    \"game\": \"api/games/30\",\r\n    \"ship\": \"api/ships/186\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -344,7 +474,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -353,7 +483,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 2,\r\n    \"game\": \"api/games/28\"\r\n\r\n}",
+					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 0,\r\n    \"game\": \"api/games/30\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -431,6 +561,19 @@
 		},
 		{
 			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e0fe9f2-9517-48e7-b33a-df6ee7b98d0e",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -452,68 +595,6 @@
 					"port": "8000",
 					"path": [
 						"authentication_token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get game",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/games/28",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"games",
-						"28"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get cell (status)",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxNzE4MTcsImV4cCI6MTU5NzE3NTQxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.TvINBpT7Dxnkzcrb6Wn36lHk40EbJga5LX1InbNh7YWK3drmTUO_RuhpSsDDIrUZXq4wws3ZGV8nAqC_mdGibjxlXDT-9QkMbpB54UX5FkP1K7AgM8z-KIPkesVsANsSfGppDo_tG54v6fPR_dZNuGLShwQbnyyQEG8wCL8O707LP06RiSCNtioiZdPrV0F9zCyV0WkEhceIphCmyn-Jw0P-M7hY9R_Bw8LIlt_DkrHkjoS7rW7V9739Fy-KvESmQ1J9eP12DFIBgPLeflic4ACeAE-NfDCr9Dle5hlN0txz8xOEl-11X1-ZEp50J1jae752GrgVUKtEfAuKcn4F07Of7R6mF2j0Fi1iDKhwpknqb34SixOWnr3273AWt9WxHIuOqwlqBZdBT1qI7Z-tC6jQEStQcTDQMQe-EHxcBDgUBMlcB25mPassJJKlSG1v0wgKxR_JJTje9PlQjyRS_tPZbNgxsjaZtucYEr_b1yqrdM0J524pN9tqIz-bvLDTuOIr1Amilk9AeLB_THXlLiRRLJumU5bpgGjyGZrLaKW2vsWLftiYqWdvXsBHkaWD2KErWUc4gzn4LAg5g-OzQHFlMCfuJF4p_Lc2xPfemtKb1qz0VoUJWAZqzvlzOUlLRpBIisiZgR37bmcLgBkEdir2fc7xgLwUOgRIdQYPVmw",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/cells/312",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"cells",
-						"312"
 					]
 				}
 			},
