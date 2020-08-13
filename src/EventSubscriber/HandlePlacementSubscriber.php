@@ -8,6 +8,7 @@ use App\Entity\Game;
 use App\Entity\Placement;
 use App\Entity\Ship;
 use App\Entity\User;
+use App\Helper\CellState;
 use App\Helper\GameState;
 use App\Helper\ShipState;
 use App\Utils\CoordinatesGetter;
@@ -36,6 +37,9 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @return array|array[]
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -43,6 +47,9 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param ViewEvent $event
+     */
     public function handlePlacement(ViewEvent $event)
     {
         $placement = $event->getControllerResult();
@@ -57,8 +64,7 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
         $this->entityManager->flush();
         $game = $placement->getGame();
 
-        // TODO: implement COMP, as dor now the other player makes same placement.. :_(
-        // TODO: magic number 1 as COMP
+        // TODO: implement COMP placement, as for now the other player makes same placement.. :_(
         $this->doCompMove($game, $placement);
         $this->handleGameStateChange($game);
         //
@@ -86,7 +92,6 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
             $compUser = $enemy;
 
             if ($ownType == $compType && $shipUser == $compUser) {
-                $this->logger->log('info', "iffsen? ");
                 $compPlacement->setShip($otherShip);
                 $otherShip->setState(ShipState::STATE_FLOATING);
                 $this->entityManager->persist($otherShip);
@@ -101,7 +106,7 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
                     $cell->setShip($otherShip);
                     $cell->setXCoordinate($coordinate[0]);
                     $cell->setYCoordinate($coordinate[1]);
-                    $cell->setCellstate('STATE_PLACED');
+                    $cell->setCellstate(CellState::STATE_PLACED);
                     $this->entityManager->persist($cell);
                 }
                 $this->entityManager->flush();

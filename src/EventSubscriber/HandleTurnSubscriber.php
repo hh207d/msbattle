@@ -38,7 +38,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
     /**
      * @param ViewEvent $event
-     * @throws \Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException
      */
     public function handleTurn(ViewEvent $event)
     {
@@ -61,8 +60,9 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
         if($targetCell instanceof Cell)
         {
-
+            $this->logger->log('error', 'Hallo?!?!?');
             $targetCell->setCellstate('HIT');
+            $this->checkAndUpdateShipState($targetCell);
             // TODO: Update ship -> did it sink?
         }
         else
@@ -147,4 +147,24 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
 
     }
+
+     private function checkAndUpdateShipState(Cell $cell)
+     {
+         $ship = $cell->getShip();
+         $allCellsForShip = $ship->getCells();
+         $isSunk = true;
+         foreach ($allCellsForShip as $shipCell)
+         {
+             if($cell->getCellstate() !== CellState::STATE_HIT)
+             {
+                 $isSunk = false;
+             }
+         }
+         if($isSunk)
+         {
+             $ship->setState(ShipState::STATE_SUNK);
+         }
+         $this->entityManager->persist($ship);
+         $this->entityManager->flush();
+     }
 }

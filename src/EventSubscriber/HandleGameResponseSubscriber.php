@@ -33,7 +33,6 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
 
     public function removeCompData(ViewEvent $event)
     {
-        $this->logger->log('error', 'WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH!');
         $game = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
         if (!$game instanceof Game || Request::METHOD_POST !== $method) {
