@@ -176,7 +176,7 @@ class Turn
      * @Assert\IsTrue(message=ConstraintMessage::COORDINATES_ALREADY_BOMBED)
      * @return bool
      */
-    public function isAlreadyBombed()
+    public function isBombable()
     {
         $cells = $this->getGame()->getCells();
 
@@ -186,16 +186,21 @@ class Turn
             {
                 continue;
             }
-            if( $cell->getCellstate() === CellState::STATE_PLACED &&
+            if($cell->getCellstate() === CellState::STATE_PLACED)
+            {
+                continue;
+            }
+            if(
                 $cell->getXCoordinate() === $this->getXcoord() &&
                 $cell->getYCoordinate() === $this->getYcoord() )
             {
-                return true;
+                return false;
             }
+
         }
 
 
-        return false;
+        return true;
     }
 
 

@@ -56,14 +56,12 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
 
 
-        $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $targetPlayer,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
+        $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['game' => $game, 'user' => $targetPlayer,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
 
         if($targetCell instanceof Cell)
         {
-            $this->logger->log('error', 'Hallo?!?!?');
-            $targetCell->setCellstate('HIT');
-            $this->checkAndUpdateShipState($targetCell);
-            // TODO: Update ship -> did it sink?
+            $targetCell->setCellstate(CellState::STATE_HIT);
+
         }
         else
         {
@@ -76,7 +74,15 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
         }
         $this->entityManager->persist($targetCell);
+        $this->logger->log('error', 'targetCell->getCellstate()');
+        $this->logger->log('error', $targetCell->getCellstate());
         $this->entityManager->flush();
+
+        if($targetCell)
+        {
+            $this->checkAndUpdateShipState($targetCell);
+            // TODO: Update ship -> did it sink?
+        }
 
         $player = $game->getUser();
         $this->handleEnemyTurn($player, $targetPlayer, $game);
@@ -150,21 +156,29 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
      private function checkAndUpdateShipState(Cell $cell)
      {
+         $this->logger->log('Error', 'bin da..');
          $ship = $cell->getShip();
          $allCellsForShip = $ship->getCells();
          $isSunk = true;
          foreach ($allCellsForShip as $shipCell)
          {
-             if($cell->getCellstate() !== CellState::STATE_HIT)
+             $this->logger->log('Error', 'shipCell:');
+             $this->logger->log('Error', 'getCellstate: ' . $shipCell->getCellstate());
+             $this->logger->log('Error', 'getId: ' . $shipCell->getId());
+             if($shipCell->getCellstate() !== CellState::STATE_HIT)
              {
+                 $this->logger->log('Error', 'if..');
                  $isSunk = false;
              }
          }
          if($isSunk)
          {
+
+             $this->logger->log('Error', 'isSunk..');
              $ship->setState(ShipState::STATE_SUNK);
+             $this->entityManager->persist($ship);
+             $this->entityManager->flush();
          }
-         $this->entityManager->persist($ship);
-         $this->entityManager->flush();
+
      }
 }
