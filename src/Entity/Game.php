@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\GameState;
+use App\Helper\ShipState;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,7 +40,7 @@ class Game
      * @ORM\Column(type="integer")
      * @Assert\NotNull
      */
-    private $sizeX;
+    private $sizeX = self::DEFAULT_X_SIZE;
 
     /**
      * @var int
@@ -46,7 +48,7 @@ class Game
      * @ORM\Column(type="integer")
      * @Assert\NotNull
      */
-    private $sizeY;
+    private $sizeY = self::DEFAULT_Y_SIZE;
 
     /**
      * @var string
@@ -54,7 +56,7 @@ class Game
      * @ORM\Column(type="text")
      * @Assert\NotNull
      */
-    private $state;
+    private $state = GameState::STATE_STARTED;
 
     /**
      * @ORM\OneToMany(targetEntity=Ship::class, mappedBy="game")
@@ -82,6 +84,8 @@ class Game
      */
     private $user;
 
+    private $winner;
+
     public function __construct()
     {
         $this->ships = new ArrayCollection();
@@ -93,6 +97,23 @@ class Game
     public function __toString()
     {
         return strval($this->getId());
+    }
+
+    public function getWinner(){
+        $result = 'no winner yet';
+        If($this->getState() == GameState::STATE_FINISHED)
+        {
+            $$result = 'Comp has won';
+            $allShips = $this->getShips();
+            foreach ($allShips as $ship)
+            {
+                if($ship->getUser() === $this->getUser() && $ship->getUser() === ShipState::STATE_FLOATING)
+                {
+                    $$result = 'Player has won';
+                }
+            }
+        }
+        return $result;
     }
 
     public function getId(): ?int

@@ -34,10 +34,13 @@ steps to play
 
 * add game (with [`POST` to `api/games`]) 
 
+      {}
+
+  optionally, the size can be set while adding a game:
+
       {  
           "sizeX": 5,
           "sizeY": 5,
-          "state": "STATE_STARTED"
       }
 
 * make placements for the ships (with [`POST` to `api/placements`]) and the appropriate json
@@ -49,7 +52,7 @@ steps to play
           "game": "api/games/28",
           "ship": "api/ships/170"
       }
-  (when all ships are placed, the game will indicate it through the )
+  (when all ships are placed, the game will indicate it through the `gameInPlacementMode` value set to `false`)
 
 * make turns (with [`POST` to `api/turns`]) and the appropriate json
 
@@ -59,8 +62,8 @@ steps to play
           "game": "api/games/28"    
       }
 
-* (win the game); status of game can be seen with the [`GET` to `api/games/{id}`]
+* status of game can be seen with the [`GET` to `api/games/{id}`]
 
 * a list of all games can be seen with the [`GET` to `api/games`]
 
-* an index page can be reached via browser: http://localhost:8000/
+* a little index page can be reached via browser: http://localhost:8000/
