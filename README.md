@@ -22,6 +22,7 @@ steps to play
           "email": "ttt@a.a",
           "password": "sehrgeheim"
       }
+  (Postman should now set the bearer token automatically in the next requests; if not, please take it from the response of the above login request)
 
 
 * add game (with [`POST` to `api/games`]) 
@@ -41,6 +42,7 @@ steps to play
           "game": "api/games/28",
           "ship": "api/ships/170"
       }
+  (when all ships are placed, the game will indicate it through the )
 
 * make turns (with [`POST` to `api/turns`]) and the appropriate json
 
@@ -54,14 +56,4 @@ steps to play
 
 * a list of all games can be seen with the [`GET` to `api/games`]
 
-## what is (known) missing
-
-* no strategies of COMP-opponent
-* no security for routes, the user shouldn't reach
-* no tests
-* gui
-* login url `authentication_token` not intuitive
-
-## what else is missing
-
-* ???
+* an index page can be reached via browser: http://localhost:8000/

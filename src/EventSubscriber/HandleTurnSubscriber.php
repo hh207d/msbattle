@@ -36,7 +36,10 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
-
+    /**
+     * @param ViewEvent $event
+     * @throws \Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException
+     */
     public function handleTurn(ViewEvent $event)
     {
         $turn = $event->getControllerResult();
@@ -51,6 +54,8 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $game = $turn->getGame();
         // TODO: rm magic number..
         $targetPlayer = $this->entityManager->getRepository(User::class)->find(1);
+
+
 
         $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $targetPlayer,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
 
@@ -73,14 +78,16 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $this->entityManager->persist($targetCell);
         $this->entityManager->flush();
 
-        // TODO: handle enemy turn...
-        // TODO: rm duplicated code (HandlePlacementSubscriber)
+        $player = $game->getUser();
+        $this->handleEnemyTurn($player, $targetPlayer, $game);
+
         $this->handleGameStateChange($game, $targetPlayer);
-
-
-
     }
 
+    /**
+     * @param Game $game
+     * @param User $targetPlayer
+     */
     private function handleGameStateChange(Game $game, User $targetPlayer)
     {
         $sem = $this->entityManager->getRepository(Ship::class);
@@ -94,11 +101,12 @@ class HandleTurnSubscriber implements EventSubscriberInterface
             $this->entityManager->flush();
         }
 
-
     }
 
 
-
+    /**
+     * @return array|array[]
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -107,4 +115,36 @@ class HandleTurnSubscriber implements EventSubscriberInterface
     }
 
 
+    private function handleEnemyTurn(User $player, User $comp, Game $game)
+    {
+        $isValidTurn = false;
+        while(!$isValidTurn)
+        {
+            $xCoord = rand(0,Game::DEFAULT_X_SIZE-1);
+            $yCoord = rand(0,Game::DEFAULT_Y_SIZE-1);
+            $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $player,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
+            $isValidTurn = !($targetCell instanceof Cell);
+        }
+
+        $enemyTurn = new Turn();
+        $enemyTurn->setUser($comp);
+        $enemyTurn->setXcoord($xCoord);
+        $enemyTurn->setYcoord($yCoord);
+        $enemyTurn->setGame($game);
+
+
+        // get all occupied turn coords
+        // get random coords
+        // check if duplicate
+        // set Turn
+    }
+
+    private function updateOrCreateCellAfterTurn(Turn $turn)
+    {
+        // turn: 'user' ist der der grad den Turn gemacht hat
+        // cell: 'user' ist der, auf dessen Ozean die Bombe platziert wird
+
+
+
+    }
 }

@@ -11,4 +11,5 @@ abstract class ConstraintMessage
     const GAME_NOT_IN_PLACEMENT_MODE = 'This games is not in placement mode';
     const SHIP_IS_NOT_DOCKED = 'This ship is not docked';
     const SHIP_IS_NOT_YOURS = 'This ship does not belong to you';
+    const COORDINATES_ALREADY_BOMBED = 'This field has been bombed already';
 }

@@ -61,7 +61,7 @@ class DefaultController extends AbstractController
         {
 
 
-            $playedGames = [];
+
 
             foreach ($games as $game)
             {

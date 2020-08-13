@@ -20,6 +20,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Game
 {
+    const DEFAULT_X_SIZE = 8;
+    const DEFAULT_Y_SIZE = 8;
+
     /**
      * @var int|null
      *

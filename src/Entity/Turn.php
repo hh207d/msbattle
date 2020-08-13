@@ -9,6 +9,7 @@ use App\Helper\CellState;
 use App\Helper\GameState;
 use App\Helper\ConstraintMessage;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,7 +18,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @see http://schema.org/Thing Documentation on Schema.org
  *
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/Thing")
+ * @ApiResource(
+ *     iri="http://schema.org/Thing"
+ * )
+ *
  */
 class Turn
 {
@@ -49,6 +53,7 @@ class Turn
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="turns")
      * @ORM\JoinColumn(nullable=false)
+     * @var Game $game
      */
     private $game;
 
@@ -57,6 +62,42 @@ class Turn
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+
+    private $typeOfHitTarget;
+
+
+    public function getTypeOfHitTarget()
+    {
+
+        $cells = $this->game->getCells();
+        // TODO: rm magic string
+        $typeOfHitTarget = "WATER";
+        foreach ($cells as $cell)
+        {
+            if($cell->getUser() === $this->getUser())
+            {
+                continue;
+            }
+            if($cell->getXCoordinate() === $this->getXcoord() && $cell->getYCoordinate() === $this->getYcoord())
+            {
+                $typeOfHitTarget = $cell->getShip()->getType()->getName();
+
+
+            }
+        }
+        $this->setTypeOfHitTarget($typeOfHitTarget);
+        return $this->typeOfHitTarget;
+    }
+
+    /**
+     * @param mixed $typeOfHitTarget
+     */
+    public function setTypeOfHitTarget($typeOfHitTarget): void
+    {
+        $this->typeOfHitTarget = $typeOfHitTarget;
+    }
+
 
 
     public function __toString()
@@ -131,6 +172,33 @@ class Turn
         return $this->getGame()->getUser() === $this->getUser();
     }
 
+    /**
+     * @Assert\IsTrue(message=ConstraintMessage::COORDINATES_ALREADY_BOMBED)
+     * @return bool
+     */
+    public function isAlreadyBombed()
+    {
+        $cells = $this->getGame()->getCells();
+
+        foreach ($cells as $cell)
+        {
+            if($cell->getUser() === $this->getUser())
+            {
+                continue;
+            }
+            if( $cell->getCellstate() === CellState::STATE_PLACED &&
+                $cell->getXCoordinate() === $this->getXcoord() &&
+                $cell->getYCoordinate() === $this->getYcoord() )
+            {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
+
     public function isTurnHit()
     {
 
@@ -146,5 +214,7 @@ class Turn
         return false;
 
     }
+
+
 
 }
