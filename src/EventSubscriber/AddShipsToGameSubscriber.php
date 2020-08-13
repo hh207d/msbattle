@@ -7,6 +7,7 @@ use App\Entity\Game;
 use App\Entity\Ship;
 use App\Entity\Shiptype;
 use App\Entity\User;
+use App\Helper\Constant;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -61,7 +62,7 @@ class AddShipsToGameSubscriber implements EventSubscriberInterface
         $this->entityManager->flush();
         foreach ($shipTypes as $shipType) {
             $ship = new Ship();
-            $theUser = $this->entityManager->getRepository(User::class)->find(1);
+            $theUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
 
             $ship->setUser($theUser);
             $ship->setState('STATE_DOCKED');

@@ -9,6 +9,7 @@ use App\Entity\Ship;
 use App\Entity\Turn;
 use App\Entity\User;
 use App\Helper\CellState;
+use App\Helper\Constant;
 use App\Helper\GameState;
 use App\Helper\ShipState;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,7 +54,7 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $game = $turn->getGame();
         $player = $game->getUser();
         // TODO: rm magic number..
-        $targetPlayer = $this->entityManager->getRepository(User::class)->find(1);
+        $targetPlayer = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
 
         $this->updateOrCreateCellAfterTurn($turn);
 /*
@@ -161,9 +162,9 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         // cell: 'user' ist der, auf dessen Ozean die Bombe platziert wird
 
         $game = $turn->getGame();
-        $isEnemyTurn = $turn->getUser()->getId() == 1;
+        $isEnemyTurn = $turn->getUser()->getEmail() == Constant::COMP_EMAIL;
         $player = $turn->getGame()->getUser();
-        $comp = $this->entityManager->getRepository(User::class)->find(1);
+        $comp = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
         $activePlayer = $isEnemyTurn ? $comp : $player;
         $targetPlayer = $isEnemyTurn ? $player : $comp;
 

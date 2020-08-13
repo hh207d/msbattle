@@ -8,6 +8,9 @@ a simple battleships-game-api with symfony
 ## installation
 * clone
 * composer install
+* php bin/console doctrine:schema:create
+* php bin/console doctrine:fixtures:load
+
 * symfony serve
 
 ## playing
@@ -19,7 +22,7 @@ steps to play
 * login with existing user (with [`POST` to `authentication_token`]) and the appropriate json
 
       {
-          "email": "ttt@a.a",
+          "email": "spieler@spiel.de",
           "password": "sehrgeheim"
       }
   (Postman should now set the bearer token automatically in the next requests; if not, please take it from the response of the above login request)

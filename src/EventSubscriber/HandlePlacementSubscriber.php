@@ -9,6 +9,7 @@ use App\Entity\Placement;
 use App\Entity\Ship;
 use App\Entity\User;
 use App\Helper\CellState;
+use App\Helper\Constant;
 use App\Helper\GameState;
 use App\Helper\ShipState;
 use App\Utils\CoordinatesGetter;
@@ -72,7 +73,7 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
 
     private function doCompMove(Game $game, Placement $placement)
     {
-        $enemy = $this->entityManager->getRepository(User::class)->find(1);
+        $enemy = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
         $compPlacement = new Placement();
 
         $orientation = $placement->getOrientation();

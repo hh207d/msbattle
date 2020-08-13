@@ -290,7 +290,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/games/30",
+							"raw": "http://localhost:8000/api/games/32",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -299,7 +299,7 @@
 							"path": [
 								"api",
 								"games",
-								"30"
+								"32"
 							]
 						}
 					},
@@ -335,6 +335,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get turn info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/turns/21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"turns",
+								"21"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -350,7 +381,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTcxODM3NzMsImV4cCI6MTU5NzE4NzM3Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.mdNOJ5MsXu_ZnVQlsvaSuRdVSS0cWGNL7EkIGoetnzgrMyGHisg5zt0FgHKydw8jDXmwh_bU-eW3ya1g_jYAfZig5Je3ctL1Cf3XOYsBB4lyPxhzdYgolyc-st_7IJIOawwZQepllguN_f9LIDjqs8aMn2ugmAFTkq_C1dKOcHNhOCu7wP41TQBDaTIE9lFPxy50p1PvGTP79iO01uLksD918ECvC68J0qeRr-PUBhaIB2tg9MhGHSfzRreOhqAVCWQDeuD9oufXqZgP9HjtgCsC-7h002r2naPsfaMWDuD1nuVSo8IJRoJN41pZg-QoVRplJh5Q0h5dIH1dikE8ax8_0eAroRAM3YHO41ZA0ZWTZvF0k02NLCNUeJDbp7ltRvM1Hj9_JELHjprwc0xWOMKh4fpm3ipnJiUgI-MD-NK_7gcv2oPqTXKYi3j6sPyyqwGTd4L_7QSj1gXIFNINWwuJgO3cnF2w_6XWeG5eWoDthfp8CheJf3FqumQ9LIEa0BsIiM89qPxp-_9BxpkbbsyCNVmpOkZoZY65ibhAJakmB2eTJL4jb289RecLsywg_S8AGpEeS_ryaqEOA4Lbm8aHvgNQ3Y4mMBUgugJ5766Baxq3uB6igoLGOe7eJ8iYNGE5WtHuKzMAocpFFNwHyPVGjxtrkmtnHOiiHhQGKn8",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -444,7 +475,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 2,\r\n    \"ycoord\": 1,\r\n    \"orientation\": \"ORIENTATION_VERTICAL\",\r\n    \"game\": \"api/games/30\",\r\n    \"ship\": \"api/ships/186\"\r\n}",
+					"raw": "{\r\n    \"xcoord\": 4,\r\n    \"ycoord\": 0,\r\n    \"orientation\": \"ORIENTATION_VERTICAL\",\r\n    \"game\": \"api/games/33\",\r\n    \"ship\": \"api/ships/216\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -483,7 +514,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 0,\r\n    \"game\": \"api/games/30\"\r\n\r\n}",
+					"raw": "{\r\n    \"xcoord\": 1,\r\n    \"ycoord\": 1,\r\n    \"game\": \"api/games/32\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -579,7 +610,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"ttt@a.a\",\n    \"password\": \"sehrgeheim\"\n}",
+					"raw": "{\n    \"email\": \"spieler@spiel.de\",\n    \"password\": \"sehrgeheim\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
