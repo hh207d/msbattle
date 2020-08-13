@@ -204,6 +204,16 @@ class Turn
     }
 
 
+    /**
+     * @Assert\IsTrue(message=ConstraintMessage::TURN_HAS_NO_VALID_COORDS)
+     * @return bool
+     */
+    public function isTurnValid()
+    {
+        return $this->game->getSizeX() > $this->getXcoord() && $this->game->getSizeY() > $this->getYcoord();
+
+    }
+
     public function isTurnHit()
     {
 
@@ -219,6 +229,7 @@ class Turn
         return false;
 
     }
+
 
 
 

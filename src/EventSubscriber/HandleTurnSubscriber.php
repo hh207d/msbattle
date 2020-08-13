@@ -48,14 +48,15 @@ class HandleTurnSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $xCoord = $turn->getXcoord();
-        $yCoord = $turn->getYcoord();
+//        $xCoord = $turn->getXcoord();
+//        $yCoord = $turn->getYcoord();
         $game = $turn->getGame();
+        $player = $game->getUser();
         // TODO: rm magic number..
         $targetPlayer = $this->entityManager->getRepository(User::class)->find(1);
 
-
-
+        $this->updateOrCreateCellAfterTurn($turn);
+/*
         $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['game' => $game, 'user' => $targetPlayer,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
 
         if($targetCell instanceof Cell)
@@ -83,10 +84,11 @@ class HandleTurnSubscriber implements EventSubscriberInterface
             $this->checkAndUpdateShipState($targetCell);
             // TODO: Update ship -> did it sink?
         }
+*/
 
-        $player = $game->getUser();
+
+
         $this->handleEnemyTurn($player, $targetPlayer, $game);
-
         $this->handleGameStateChange($game, $targetPlayer);
     }
 
@@ -128,8 +130,17 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         {
             $xCoord = rand(0,Game::DEFAULT_X_SIZE-1);
             $yCoord = rand(0,Game::DEFAULT_Y_SIZE-1);
+            $this->logger->log('error', 'xCoord: '. $xCoord);
+            $this->logger->log('error', 'yCoord: '. $yCoord);
             $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $player,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
-            $isValidTurn = !($targetCell instanceof Cell);
+
+            if($targetCell)
+            {
+                if($targetCell->getCellstate() === CellState::STATE_PLACED)
+                {
+                    $isValidTurn = true;
+                }
+            }
         }
 
         $enemyTurn = new Turn();
@@ -138,17 +149,54 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $enemyTurn->setYcoord($yCoord);
         $enemyTurn->setGame($game);
 
+        $this->entityManager->persist($enemyTurn);
+        $this->entityManager->flush();
 
-        // get all occupied turn coords
-        // get random coords
-        // check if duplicate
-        // set Turn
+        $this->updateOrCreateCellAfterTurn($enemyTurn);
     }
 
     private function updateOrCreateCellAfterTurn(Turn $turn)
     {
         // turn: 'user' ist der der grad den Turn gemacht hat
         // cell: 'user' ist der, auf dessen Ozean die Bombe platziert wird
+
+        $game = $turn->getGame();
+        $isEnemyTurn = $turn->getUser()->getId() == 1;
+        $player = $turn->getGame()->getUser();
+        $comp = $this->entityManager->getRepository(User::class)->find(1);
+        $activePlayer = $isEnemyTurn ? $comp : $player;
+        $targetPlayer = $isEnemyTurn ? $player : $comp;
+
+        $xCoord = $turn->getXcoord();
+        $yCoord = $turn->getYcoord();
+
+        $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['game' => $game, 'user' => $targetPlayer,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
+
+        if($targetCell instanceof Cell)
+        {
+            $targetCell->setCellstate(CellState::STATE_HIT);
+
+        }
+        else
+        {
+            $targetCell = new Cell();
+            $targetCell->setUser($activePlayer);
+            $targetCell->setCellstate(CellState::STATE_MISSED);
+            $targetCell->setGame($game);
+            $targetCell->setXCoordinate($xCoord);
+            $targetCell->setYCoordinate($yCoord);
+
+        }
+        $this->entityManager->persist($targetCell);
+        $this->logger->log('error', 'targetCell->getCellstate()');
+        $this->logger->log('error', $targetCell->getCellstate());
+        $this->entityManager->flush();
+
+        if($targetCell && $targetCell->getShip() != null)
+        {
+            $this->checkAndUpdateShipState($targetCell);
+            // TODO: Update ship -> did it sink?
+        }
 
 
 
