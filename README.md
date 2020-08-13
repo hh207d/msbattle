@@ -34,6 +34,8 @@ steps to play
 
 * add game (with [`POST` to `api/games`]) 
 
+standard size for a game ist 8 x 8 fields
+
       {}
 
   optionally, the size can be set while adding a game:
@@ -43,7 +45,10 @@ steps to play
           "sizeY": 5,
       }
 
-* make placements for the ships (with [`POST` to `api/placements`]) and the appropriate json
+* make placements for the ships (with [`POST` to `api/placements`]) and the appropriate json 
+
+options for orientation are ['ORIENTATION_HORIZONTAL','ORIENTATION_VERTICAL']
+x- and y-coordinates begin from 0, the ship will be place beginning from the coordinates and then 'to the right' / 'down' depending on orientation
 
       {
           "xcoord": 0,
