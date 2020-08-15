@@ -29,7 +29,8 @@
     "require-dev": {
         "api-platform/schema-generator": "^2.2",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "symfony/maker-bundle": "^1.20"
+        "symfony/maker-bundle": "^1.20",
+        "symfony/phpunit-bridge": "^5.1"
     },
     "config": {
         "preferred-install": {
