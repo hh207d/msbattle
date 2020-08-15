@@ -13,7 +13,6 @@ class PlacementInsideOceanValidator extends ConstraintValidator
     {
         /* @var $constraint PlacementInsideOcean */
 
-
         /** @var Placement $value */
         if (null === $value || '' === $value) {
             return;
@@ -27,6 +26,4 @@ class PlacementInsideOceanValidator extends ConstraintValidator
             ->setParameter('{{ value }}', $value)
             ->addViolation();
     }
-
-
 }

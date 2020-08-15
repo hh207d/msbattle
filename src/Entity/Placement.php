@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Helper\GameState;
+use App\Helper\Orientation;
 use App\Helper\ShipState;
 use App\Helper\ConstraintMessage;
 use App\Validator\PlacementInsideOcean;
@@ -187,6 +188,15 @@ class Placement
     public function isUsersGame()
     {
         return $this->getGame()->getUser() === $this->getUser();
+    }
+
+    /**
+     * @Assert\IsTrue(message=ConstraintMessage::NO_VALID_ORIENTATION)
+     * @return bool
+     */
+    public function isOrientationValid()
+    {
+        return in_array($this->getOrientation(), [Orientation::HORIZONTAL, Orientation::VERTICAL]);
     }
 
 

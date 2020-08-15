@@ -111,8 +111,6 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
                     $this->entityManager->persist($cell);
                 }
                 $this->entityManager->flush();
-
-
             }
         }
         $this->entityManager->persist($compPlacement);

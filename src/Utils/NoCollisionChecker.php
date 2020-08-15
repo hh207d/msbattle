@@ -12,16 +12,13 @@ class NoCollisionChecker
     {
         $game = $placement->getGame();
         $cells = $game->getCells();
-
         $cellArr = [];
         foreach ($cells as $cell)
         {
             $cellArr[] = [$cell->getXCoordinate(), $cell->getYCoordinate()];
         }
-
         $coordinatesGetter = new CoordinatesGetter();
         $coordinatesToUpdate = $coordinatesGetter->getPointsToUpdate($placement);
-
         foreach ($coordinatesToUpdate as $coord)
         {
             foreach ($cellArr as $possiblyOccupiedCell)
@@ -33,8 +30,5 @@ class NoCollisionChecker
             }
         }
         return true;
-
-
-
     }
 }

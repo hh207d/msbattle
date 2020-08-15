@@ -2,6 +2,7 @@
 
 namespace App\Validator;
 
+use App\Helper\ValidatorMessage;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -13,5 +14,5 @@ class PlacementUser extends Constraint
      * Any public properties become valid options for the annotation.
      * Then, use these in your validator class.
      */
-    public $message = 'User does not match.';
+    public $message = ValidatorMessage::PLACEMENT_USER_NOT_MATCHING;
 }

@@ -45,7 +45,7 @@
                     <div id="placements" style="display: flex;">
                         <div id="playerPlacements" style="flex-grow: 6;padding-left: 20px;">
                             {% for playerPlacement in playerPlacements %}
-                                <p> {{ playerPlacement.id }}</p>
+                                <p> {{ playerPlacement.id }} {{ playerPlacement.xcoord }} / {{ playerPlacement.ycoord }} -> {{ playerPlacement.orientation }} (ship: {{ playerPlacement.ship.type.name }})</p>
                             {% endfor %}
 
                         </div>

@@ -7,7 +7,10 @@ namespace App\Utils;
 use App\Entity\Placement;
 use App\Helper\Orientation;
 
-
+/**
+ * Class CoordinatesGetter
+ * @package App\Utils
+ */
 class CoordinatesGetter
 {
     public function getPointsToUpdate(Placement $placement)

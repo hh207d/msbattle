@@ -37,12 +37,12 @@ class DefaultController extends AbstractController
         {
             $game = $this->getDoctrine()->getRepository(Game::class)->find($gameid);
             $user = $game->getUser();
+            /** @var Placement[] $playerPlacements */
             $playerPlacements = $this->getDoctrine()->getRepository(Placement::class)->findBy(
                 ['game' => $game, 'user' => $game->getUser()]
             );
 
             $gameState = $game->getState();
-
             if($gameState == GameState::STATE_STARTED)
             {
                 $placeableShips = $this->getDoctrine()->getRepository(Ship::class)->findBy(
@@ -53,16 +53,10 @@ class DefaultController extends AbstractController
             {
                 /** @var Turn[] $turns */
                 $turns = $this->getDoctrine()->getRepository(Turn::class)->findBy(['game' => $game]);
-
             }
-
         }
         else
         {
-
-
-
-
             foreach ($games as $game)
             {
                 $amountOfGames +=1;
@@ -80,9 +74,7 @@ class DefaultController extends AbstractController
                 $player = $game->getUser();
                 // TODO: statistics for wins, played, ...
             }
-
         }
-
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',

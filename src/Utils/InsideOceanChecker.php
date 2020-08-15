@@ -14,11 +14,8 @@ class InsideOceanChecker
         $xSize = $game->getSizeX();
         $ySize = $game->getSizeY();
 
-
-
         $coordinatesGetter = new CoordinatesGetter();
         $coordinatesToUpdate = $coordinatesGetter->getPointsToUpdate($placement);
-
 
         foreach ($coordinatesToUpdate as $coord)
         {
@@ -32,9 +29,7 @@ class InsideOceanChecker
             }
 
         }
+
         return true;
-
-
-
     }
 }
