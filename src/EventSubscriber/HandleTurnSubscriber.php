@@ -49,46 +49,12 @@ class HandleTurnSubscriber implements EventSubscriberInterface
             return;
         }
 
-//        $xCoord = $turn->getXcoord();
-//        $yCoord = $turn->getYcoord();
         $game = $turn->getGame();
         $player = $game->getUser();
         // TODO: rm magic number..
         $targetPlayer = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
 
         $this->updateOrCreateCellAfterTurn($turn);
-/*
-        $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['game' => $game, 'user' => $targetPlayer,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
-
-        if($targetCell instanceof Cell)
-        {
-            $targetCell->setCellstate(CellState::STATE_HIT);
-
-        }
-        else
-        {
-            $targetCell = new Cell();
-            $targetCell->setUser($targetPlayer);
-            $targetCell->setCellstate(CellState::STATE_MISSED);
-            $targetCell->setGame($game);
-            $targetCell->setXCoordinate($xCoord);
-            $targetCell->setYCoordinate($yCoord);
-
-        }
-        $this->entityManager->persist($targetCell);
-        $this->logger->log('error', 'targetCell->getCellstate()');
-        $this->logger->log('error', $targetCell->getCellstate());
-        $this->entityManager->flush();
-
-        if($targetCell)
-        {
-            $this->checkAndUpdateShipState($targetCell);
-            // TODO: Update ship -> did it sink?
-        }
-*/
-
-
-
         $this->handleEnemyTurn($player, $targetPlayer, $game);
         $this->handleGameStateChange($game, $targetPlayer);
     }
@@ -109,7 +75,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
             $this->entityManager->persist($game);
             $this->entityManager->flush();
         }
-
     }
 
 
@@ -129,8 +94,8 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $isValidTurn = false;
         while(!$isValidTurn)
         {
-            $xCoord = rand(0,Game::DEFAULT_X_SIZE-1);
-            $yCoord = rand(0,Game::DEFAULT_Y_SIZE-1);
+            $xCoord = rand(0,Game::DEFAULT_HEIGHT-1);
+            $yCoord = rand(0,Game::DEFAULT_WIDTH-1);
             $this->logger->log('error', 'xCoord: '. $xCoord);
             $this->logger->log('error', 'yCoord: '. $yCoord);
             $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $player,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);

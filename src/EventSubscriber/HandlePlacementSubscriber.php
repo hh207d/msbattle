@@ -66,12 +66,12 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
         $game = $placement->getGame();
 
         // TODO: implement COMP placement, as for now the other player makes same placement.. :_(
-        $this->doCompMove($game, $placement);
+        $this->doCompPlacement($game, $placement);
         $this->handleGameStateChange($game);
         //
     }
 
-    private function doCompMove(Game $game, Placement $placement)
+    private function doCompPlacement(Game $game, Placement $placement)
     {
         $enemy = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
         $compPlacement = new Placement();

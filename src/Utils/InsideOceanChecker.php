@@ -11,8 +11,8 @@ class InsideOceanChecker
     public function check(Placement $placement)
     {
         $game = $placement->getGame();
-        $xSize = $game->getSizeX();
-        $ySize = $game->getSizeY();
+        $xSize = $game->getHeight();
+        $ySize = $game->getWidth();
 
         $coordinatesGetter = new CoordinatesGetter();
         $coordinatesToUpdate = $coordinatesGetter->getPointsToUpdate($placement);

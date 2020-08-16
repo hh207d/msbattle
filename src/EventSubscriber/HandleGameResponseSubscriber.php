@@ -18,7 +18,6 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
     private $logger;
     private $entityManager;
 
-
     public function __construct(
         Security $security,
         LoggerInterface $logger,
@@ -30,6 +29,12 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::VIEW => ['removeCompData', EventPriorities::PRE_SERIALIZE]
+        ];
+    }
 
     public function removeCompData(ViewEvent $event)
     {
@@ -57,12 +62,5 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
             }
         }
 
-    }
-
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::VIEW => ['removeCompData', EventPriorities::PRE_SERIALIZE]
-        ];
     }
 }

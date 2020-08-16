@@ -8,35 +8,36 @@ use App\Entity\Ship;
 use App\Entity\Shiptype;
 use App\Helper\Orientation;
 use App\Utils\InsideOceanChecker;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 class InsideOceanCheckerTest extends TestCase
 {
 
     /**
      * @dataProvider providerTestCheck
-     * @param $sizeX
-     * @param $sizeY
+     * @param $height
+     * @param $width
      * @param $shipLength
      * @param $orientation
      * @param $x
      * @param $y
      * @param $expected
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
-    public function testCheck($sizeX, $sizeY, $shipLength, $orientation, $x, $y, $expected)
+    public function testCheck($height, $width, $shipLength, $orientation, $x, $y, $expected)
     {
         $game = new Game();
-        $game->setSizeX($sizeX);
-        $game->setSizeY($sizeY);
+        $game->setHeight($height);
+        $game->setWidth($width);
 
         $shipType = new Shiptype();
         $shipType->setLength($shipLength);
 
         $ship = new Ship();
         $ship->setType($shipType);
-
 
         $placement = new Placement();
         $placement->setGame($game);
@@ -55,8 +56,8 @@ class InsideOceanCheckerTest extends TestCase
     {
         return [
             [
-                'sizeX' => 8,
-                'sizeY' => 8,
+                'height' => 8,
+                'width' => 8,
                 'shipLength' => 4,
                 'orientation' => Orientation::HORIZONTAL,
                 'x' => 0,
@@ -64,17 +65,8 @@ class InsideOceanCheckerTest extends TestCase
                 'expected' => true
             ],
             [
-                'sizeX' => 2,
-                'sizeY' => 2,
-                'shipLength' => 4,
-                'orientation' => Orientation::HORIZONTAL,
-                'x' => 0,
-                'y' => 0,
-                'expected' => false
-            ],
-            [
-                'sizeX' => 2,
-                'sizeY' => 2,
+                'height' => 2,
+                'width' => 2,
                 'shipLength' => 4,
                 'orientation' => Orientation::HORIZONTAL,
                 'x' => 0,
@@ -82,8 +74,17 @@ class InsideOceanCheckerTest extends TestCase
                 'expected' => false
             ],
             [
-                'sizeX' => 3,
-                'sizeY' => 3,
+                'height' => 2,
+                'width' => 2,
+                'shipLength' => 4,
+                'orientation' => Orientation::HORIZONTAL,
+                'x' => 0,
+                'y' => 0,
+                'expected' => false
+            ],
+            [
+                'height' => 3,
+                'width' => 3,
                 'shipLength' => 3,
                 'orientation' => Orientation::HORIZONTAL,
                 'x' => 0,
@@ -91,8 +92,8 @@ class InsideOceanCheckerTest extends TestCase
                 'expected' => true
             ],
             [
-                'sizeX' => 3,
-                'sizeY' => 3,
+                'height' => 3,
+                'width' => 3,
                 'shipLength' => 3,
                 'orientation' => Orientation::VERTICAL,
                 'x' => 0,
@@ -100,13 +101,22 @@ class InsideOceanCheckerTest extends TestCase
                 'expected' => true
             ],
             [
-                'sizeX' => 8,
-                'sizeY' => 1,
+                'height' => 8,
+                'width' => 1,
                 'shipLength' => 3,
                 'orientation' => Orientation::VERTICAL,
                 'x' => 0,
                 'y' => 0,
                 'expected' => true
+            ],
+            [
+                'height' => 8,
+                'width' => 1,
+                'shipLength' => 3,
+                'orientation' => Orientation::HORIZONTAL,
+                'x' => 0,
+                'y' => 0,
+                'expected' => false
             ],
         ];
     }

@@ -22,8 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Game
 {
-    const DEFAULT_X_SIZE = 8;
-    const DEFAULT_Y_SIZE = 8;
+    const DEFAULT_HEIGHT = 8;
+    const DEFAULT_WIDTH = 8;
 
     /**
      * @var int|null
@@ -40,7 +40,7 @@ class Game
      * @ORM\Column(type="integer")
      * @Assert\NotNull
      */
-    private $sizeX = self::DEFAULT_X_SIZE;
+    private $height = self::DEFAULT_HEIGHT;
 
     /**
      * @var int
@@ -48,7 +48,7 @@ class Game
      * @ORM\Column(type="integer")
      * @Assert\NotNull
      */
-    private $sizeY = self::DEFAULT_Y_SIZE;
+    private $width = self::DEFAULT_WIDTH;
 
     /**
      * @var string
@@ -121,24 +121,24 @@ class Game
         return $this->id;
     }
 
-    public function setSizeX(int $sizeX): void
+    public function setHeight(int $height): void
     {
-        $this->sizeX = $sizeX;
+        $this->height = $height;
     }
 
-    public function getSizeX(): ?int
+    public function getHeight(): ?int
     {
-        return $this->sizeX;
+        return $this->height;
     }
 
-    public function setSizeY(int $sizeY): void
+    public function setWidth(int $width): void
     {
-        $this->sizeY = $sizeY;
+        $this->width = $width;
     }
 
-    public function getSizeY(): ?int
+    public function getWidth(): ?int
     {
-        return $this->sizeY;
+        return $this->width;
     }
 
     public function setState(string $state): void
@@ -245,9 +245,9 @@ class Game
     }
 
     /**
-     * @return Collection|Cell[]
+     * @return ArrayCollection|Cell[]
      */
-    public function getCells(): Collection
+    public function getCells(): ArrayCollection
     {
         return $this->cells;
     }

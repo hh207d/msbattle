@@ -210,7 +210,7 @@ class Turn
      */
     public function isTurnValid()
     {
-        return $this->game->getSizeX() > $this->getXcoord() && $this->game->getSizeY() > $this->getYcoord();
+        return $this->game->getHeight() > $this->getXcoord() && $this->game->getWidth() > $this->getYcoord();
 
     }
 

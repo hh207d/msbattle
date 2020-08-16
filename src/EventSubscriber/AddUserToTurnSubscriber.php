@@ -19,6 +19,13 @@ class AddUserToTurnSubscriber implements EventSubscriberInterface
         $this->logger = $logger;
     }
 
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::VIEW => ['addUser', EventPriorities::PRE_VALIDATE]
+        ];
+    }
+
     public function addUser(ViewEvent $event)
     {
         $turn = $event->getControllerResult();
@@ -29,12 +36,5 @@ class AddUserToTurnSubscriber implements EventSubscriberInterface
         }
         $user = $this->security->getUser();
         $turn->setUser($user);
-    }
-
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::VIEW => ['addUser', EventPriorities::PRE_VALIDATE]
-        ];
     }
 }
