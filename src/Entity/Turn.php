@@ -6,8 +6,10 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Helper\CellState;
+use App\Helper\Constant;
 use App\Helper\GameState;
 use App\Helper\ConstraintMessage;
+use App\Helper\ShipState;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -65,14 +67,12 @@ class Turn
 
 
     private $typeOfHitTarget;
-
+    private $shipSunken = false;
 
     public function getTypeOfHitTarget()
     {
-
         $cells = $this->game->getCells();
-        // TODO: rm magic string
-        $typeOfHitTarget = "WATER";
+        $typeOfHitTarget = Constant::WATER;
         foreach ($cells as $cell)
         {
             if($cell->getUser() === $this->getUser())
@@ -82,8 +82,6 @@ class Turn
             if($cell->getXCoordinate() === $this->getXcoord() && $cell->getYCoordinate() === $this->getYcoord())
             {
                 $typeOfHitTarget = $cell->getShip()->getType()->getName();
-
-
             }
         }
         $this->setTypeOfHitTarget($typeOfHitTarget);
@@ -223,6 +221,15 @@ class Turn
         {
             if($cell->getCellstate() == CellState::STATE_PLACED)
             {
+                if($this->getXcoord() === $cell->getXCoordinate() && $this->getYcoord() === $cell->getYCoordinate())
+                {
+                    $shipState = $cell->getShip()->getState();
+                    if($shipState === ShipState::STATE_SUNK)
+                    {
+                        $this->setShipSunken(true);
+                    }
+                    return true;
+                }
                 return ($this->getXcoord() === $cell->getXCoordinate() && $this->getYcoord() === $cell->getYCoordinate());
             }
         }
@@ -230,7 +237,25 @@ class Turn
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function getShipSunken()
+    {
+        return $this->shipSunken;
+    }
 
+    /**
+     * @param mixed $shipSunken
+     */
+    public function setShipSunken($shipSunken): void
+    {
+        $this->shipSunken = $shipSunken;
+    }
 
+    public function isShipSunken()
+    {
+        return $this->getShipSunken();
+    }
 
 }

@@ -245,9 +245,9 @@ class Game
     }
 
     /**
-     * @return ArrayCollection|Cell[]
+     * @return Collection|Cell[]
      */
-    public function getCells(): ArrayCollection
+    public function getCells(): Collection
     {
         return $this->cells;
     }

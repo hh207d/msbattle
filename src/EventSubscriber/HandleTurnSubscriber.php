@@ -38,6 +38,17 @@ class HandleTurnSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * @return array|array[]
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::VIEW => ['handleTurn', EventPriorities::PRE_WRITE]
+        ];
+    }
+
+
+    /**
      * @param ViewEvent $event
      */
     public function handleTurn(ViewEvent $event)
@@ -78,15 +89,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
     }
 
 
-    /**
-     * @return array|array[]
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::VIEW => ['handleTurn', EventPriorities::POST_WRITE]
-        ];
-    }
 
 
     private function handleEnemyTurn(User $player, User $comp, Game $game)
@@ -94,10 +96,9 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $isValidTurn = false;
         while(!$isValidTurn)
         {
+            // TODO: check with actual ocean size, not the defaults
             $xCoord = rand(0,Game::DEFAULT_HEIGHT-1);
             $yCoord = rand(0,Game::DEFAULT_WIDTH-1);
-            $this->logger->log('error', 'xCoord: '. $xCoord);
-            $this->logger->log('error', 'yCoord: '. $yCoord);
             $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $player,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
 
             if($targetCell)
@@ -141,7 +142,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         if($targetCell instanceof Cell)
         {
             $targetCell->setCellstate(CellState::STATE_HIT);
-
         }
         else
         {
@@ -160,15 +160,11 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
         if($targetCell && $targetCell->getShip() != null)
         {
-            $this->checkAndUpdateShipState($targetCell);
-            // TODO: Update ship -> did it sink?
+            $this->checkAndUpdateShipState($turn, $targetCell);
         }
-
-
-
     }
 
-     private function checkAndUpdateShipState(Cell $cell)
+     private function checkAndUpdateShipState(Turn $turn, Cell $cell)
      {
          $this->logger->log('Error', 'bin da..');
          $ship = $cell->getShip();
@@ -176,23 +172,19 @@ class HandleTurnSubscriber implements EventSubscriberInterface
          $isSunk = true;
          foreach ($allCellsForShip as $shipCell)
          {
-             $this->logger->log('Error', 'shipCell:');
-             $this->logger->log('Error', 'getCellstate: ' . $shipCell->getCellstate());
-             $this->logger->log('Error', 'getId: ' . $shipCell->getId());
              if($shipCell->getCellstate() !== CellState::STATE_HIT)
              {
-                 $this->logger->log('Error', 'if..');
                  $isSunk = false;
              }
          }
          if($isSunk)
          {
-
-             $this->logger->log('Error', 'isSunk..');
              $ship->setState(ShipState::STATE_SUNK);
+             $turn->setShipSunken(true);
+             $this->logger->log('error', 'Ship sunken!!!');
+
              $this->entityManager->persist($ship);
              $this->entityManager->flush();
          }
-
      }
 }
