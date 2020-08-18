@@ -103,11 +103,17 @@ class HandleTurnSubscriber implements EventSubscriberInterface
     private function handleEnemyTurn(User $player, User $comp, Game $game)
     {
         $isValidTurn = false;
+        // TODO: implement tactics, eg.:
+        // - check last turn for  hit and not sunken
+        //  - if so, check if cell around that hit cell is also a hit
+        //  - depending on that information
+        //      - only one cell hit: walk clockwise through cells around that hit.
+        //      - more hits on same ship: try cells depending on orientation of said ship
+        //  - ...
         while(!$isValidTurn)
         {
-            // TODO: check with actual ocean size, not the defaults
-            $xCoord = rand(0,Game::DEFAULT_HEIGHT-1);
-            $yCoord = rand(0,Game::DEFAULT_WIDTH-1);
+            $xCoord = rand(0,$game->getWidth()-1);
+            $yCoord = rand(0,$game->getHeight()-1);
             $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $player,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
 
             if($targetCell instanceof Cell)
