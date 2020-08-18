@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "requests to beforbidden",
+			"name": "requests to be forbidden",
 			"item": [
 				{
 					"name": "add ship",
@@ -290,7 +290,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/games/32",
+							"raw": "http://localhost:8000/api/games",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -298,8 +298,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"games",
-								"32"
+								"games"
 							]
 						}
 					},
@@ -366,193 +365,57 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "list games",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"my NON!! api platform game\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/games",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "list games",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "00 register",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"my NON!! api platform game\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/games",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"games"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add game",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTY5OTg3NzAsImV4cCI6MTU5NzAwMjM3MCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.nN85Iu6H0dU3cjBZezbRm-lXFVk6D0lEk40g03edRqZH8gAW73mpP8TJchJogHpSv41_xcyQ9UvkGeio4LdoqjSeCYk_RmEvWKnYPyjgL9wkf9t6_m4FlxzenjXuOUu3FURrpaOJgX40wWwXb_DXEEy7eODjE-gPnvMbYvLPxgE5VmibvWWRrAe5FkXvooiaS-gQ86GVPnTyxsOZI8obNyxsDFCG4a5ZfhUchfX_0KB9dKTOYXcef-IRY8Mgu31FB9quwYsEVfcFecL9Ew_NkV9A30Zps6czuRS1NF-QGd66TUR2RhFrGacZF9H6KE0QT1bGJcXbb6H9Jr9dsy9_xb6DCaytP2NQSNM9y5UZ1gEP5JVfaOdP33BjWVjQPQ9ekr6UGw904CnCx5KPQIE5ogmhHyRzPIwlZbF2p7cJW2lKOszsN_mLDooUTi-bzpOwMRDItLMOaFVGHZ8zM028tYLm9jvF1RirSk3AtwNqVmF_-WBwToiReu4vNGsJr9GDQaZF5Xj-JZuOD4gdhRxH4_zzpPZ7j5xjZC_P8BHi5i8mKHENxfN_TqjmKynBItot2MVG1DLsdTwOpoqIsBmAJTLf7a8o49QXE5tC54I7XNalwdjIIkmO74zTTnrWhp1N-jHrgqlrALmDcDEImrgvy9FjRTaYIOf05V_TRNKjdUs",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"sizeX\": 8,\r\n    \"sizeY\": 8,\r\n    \"state\": \"STATE_STARTED\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/games",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"games"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add placement",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 4,\r\n    \"ycoord\": 0,\r\n    \"orientation\": \"ORIENTATION_VERTICAL\",\r\n    \"game\": \"api/games/33\",\r\n    \"ship\": \"api/ships/216\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/placements",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"placements"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add turn",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"xcoord\": 1,\r\n    \"ycoord\": 1,\r\n    \"game\": \"api/games/32\"\r\n\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/turns",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"turns"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "register",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "helmet123",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "helmet",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
@@ -561,19 +424,17 @@
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "ttt@a.a",
+							"value": "test@geht-das.de",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "sehrgeheim",
+							"value": "nochgeheimer",
 							"type": "text"
 						}
 					],
 					"options": {
-						"raw": {
-							"language": "json"
-						}
+						"urlencoded": {}
 					}
 				},
 				"url": {
@@ -591,7 +452,7 @@
 			"response": []
 		},
 		{
-			"name": "login",
+			"name": "01 login",
 			"event": [
 				{
 					"listen": "test",
@@ -626,6 +487,130 @@
 					"port": "8000",
 					"path": [
 						"authentication_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02 add game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTY5OTg3NzAsImV4cCI6MTU5NzAwMjM3MCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidHR0QGEuYSJ9.nN85Iu6H0dU3cjBZezbRm-lXFVk6D0lEk40g03edRqZH8gAW73mpP8TJchJogHpSv41_xcyQ9UvkGeio4LdoqjSeCYk_RmEvWKnYPyjgL9wkf9t6_m4FlxzenjXuOUu3FURrpaOJgX40wWwXb_DXEEy7eODjE-gPnvMbYvLPxgE5VmibvWWRrAe5FkXvooiaS-gQ86GVPnTyxsOZI8obNyxsDFCG4a5ZfhUchfX_0KB9dKTOYXcef-IRY8Mgu31FB9quwYsEVfcFecL9Ew_NkV9A30Zps6czuRS1NF-QGd66TUR2RhFrGacZF9H6KE0QT1bGJcXbb6H9Jr9dsy9_xb6DCaytP2NQSNM9y5UZ1gEP5JVfaOdP33BjWVjQPQ9ekr6UGw904CnCx5KPQIE5ogmhHyRzPIwlZbF2p7cJW2lKOszsN_mLDooUTi-bzpOwMRDItLMOaFVGHZ8zM028tYLm9jvF1RirSk3AtwNqVmF_-WBwToiReu4vNGsJr9GDQaZF5Xj-JZuOD4gdhRxH4_zzpPZ7j5xjZC_P8BHi5i8mKHENxfN_TqjmKynBItot2MVG1DLsdTwOpoqIsBmAJTLf7a8o49QXE5tC54I7XNalwdjIIkmO74zTTnrWhp1N-jHrgqlrALmDcDEImrgvy9FjRTaYIOf05V_TRNKjdUs",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03 add placement",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"xcoord\": 0,\r\n    \"ycoord\": 4,\r\n    \"orientation\": \"HORIZONTAL\",\r\n    \"game\": \"api/games/8\",\r\n    \"ship\": \"api/ships/75\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/placements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"placements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04 add turn",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"xcoord\": 1,\r\n    \"ycoord\": 4,\r\n    \"game\": \"api/games/5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/turns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"turns"
 					]
 				}
 			},
