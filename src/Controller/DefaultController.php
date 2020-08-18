@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Cell;
 use App\Entity\Game;
 use App\Entity\Placement;
 use App\Entity\Ship;
 use App\Entity\Turn;
+use App\Entity\User;
 use App\Helper\Constant;
 use App\Helper\GameState;
 use App\Helper\ShipState;
@@ -26,6 +28,7 @@ class DefaultController extends AbstractController
 
         $playerPlacements = [];
         $turns = [];
+        $turnInformations = [];
         $gameState = '';
         $placeableShips = [];
         $amountOfGames = 0;
@@ -54,13 +57,17 @@ class DefaultController extends AbstractController
             {
                 /** @var Turn[] $turns */
                 $turns = $this->getDoctrine()->getRepository(Turn::class)->findBy(['game' => $game]);
+
                 foreach ($turns as $turn)
                 {
-
-                    $turn->setTurnHit($this->getHit());
+                    $turnInfo = [];
+                    $turnInfo['x'] = $turn->getXcoord();
+                    $turnInfo['y'] = $turn->getYcoord();
+                    list($isHit, $ShipName) = $this->getHit($turn);
+                    $turnInfo['isHit'] = $isHit ? Constant::TURN_HIT : Constant::TURN_MISSED;
+                    $turnInfo['shipName'] = $isHit ? $ShipName : "";
+                    $turnInformations[] = $turnInfo;
                 }
-
-
 
             }
 
@@ -114,6 +121,7 @@ class DefaultController extends AbstractController
             'gameState' => $gameState,
             'placeableShips' => $placeableShips,
             'turns' => $turns,
+            'turnInformations' => $turnInformations,
             'winner' => $winner
 
         ]);
@@ -121,9 +129,26 @@ class DefaultController extends AbstractController
 
     private function getHit(Turn $turn)
     {
-        $result = false;
+        $result = [false, Constant::WATER];
+        $xCoord = $turn->getXcoord();
+        $yCoord = $turn->getYCoord();
+        $game = $turn->getGame();
+        $targetPlayer = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
 
+        $targetCell = $this->getDoctrine()->getManager()->getRepository(Cell::class)->findOneBy(['game' => $game, 'user' => $targetPlayer,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
+        if($targetCell instanceof Cell)
+        {
+            $ship = $targetCell->getShip();
+            if($ship instanceof Ship)
+            {
+                $result = [true, $targetCell->getShip()->getType()->getName()];
+            }
+            else
+            {
+                $result = [false, Constant::WATER];
+            }
 
+        }
 
         return $result;
     }

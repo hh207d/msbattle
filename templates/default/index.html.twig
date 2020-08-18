@@ -56,8 +56,8 @@
                     <h2>Dieses Spiel ist im 'Battle Modus'</h2>
                    <h3>Bisherige Züge:</h3>
                     <div id="turns">
-                        {% for turn in turns %}
-                            <p> {{ turn.xcoord }} / {{ turn.ycoord }} - {{ turn.turnHit }}</p>
+                        {% for turnInformation in turnInformations %}
+                            <p> {{ turnInformation.x }} / {{ turnInformation.y }} - {{ turnInformation.isHit }} {% if turnInformation.isHit == 'Treffer!!' %}- {{ turnInformation.shipName }}{% endif %}</p>
                         {% endfor %}
                     </div>
                 {% endif %}

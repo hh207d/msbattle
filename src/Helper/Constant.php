@@ -14,4 +14,7 @@ abstract class Constant
     const WINNER_NONE = "no one";
     const WINNER_PLAYER = "Player has won!!";
     const WINNER_COMP = "Comp has won!!";
+
+    const TURN_HIT = "Treffer!!";
+    const TURN_MISSED = "Daneben!!";
 }

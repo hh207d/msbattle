@@ -178,8 +178,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
         }
         $this->entityManager->persist($targetCell);
-        $this->logger->log('error', 'targetCell->getCellstate()');
-        $this->logger->log('error', $targetCell->getCellstate());
         $this->entityManager->flush();
 
         if($targetCell && $targetCell->getShip() != null)
