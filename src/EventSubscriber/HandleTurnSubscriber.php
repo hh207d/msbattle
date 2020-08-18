@@ -101,12 +101,16 @@ class HandleTurnSubscriber implements EventSubscriberInterface
             $yCoord = rand(0,Game::DEFAULT_WIDTH-1);
             $targetCell = $this->entityManager->getRepository(Cell::class)->findOneBy(['user' => $player,'xCoordinate' => $xCoord, 'yCoordinate' => $yCoord]);
 
-            if($targetCell)
+            if($targetCell instanceof Cell)
             {
                 if($targetCell->getCellstate() === CellState::STATE_PLACED)
                 {
                     $isValidTurn = true;
                 }
+            }
+            else
+            {
+                $isValidTurn = true;
             }
         }
 
