@@ -13,6 +13,10 @@ use App\Helper\Orientation;
  */
 class CoordinatesGetter
 {
+    /**
+     * @param Placement $placement
+     * @return array
+     */
     public function getPointsToUpdate(Placement $placement)
     {
         $result = [];

@@ -65,10 +65,16 @@ class Turn
      */
     private $user;
 
-
     private $typeOfHitTarget;
+
+    /**
+     * @var bool
+     */
     private $shipSunken = false;
 
+    /**
+     * @return mixed
+     */
     public function getTypeOfHitTarget()
     {
         $cells = $this->game->getCells();
@@ -96,43 +102,66 @@ class Turn
         $this->typeOfHitTarget = $typeOfHitTarget;
     }
 
-
-
+    /**
+     * @return mixed
+     */
     public function __toString()
     {
         return strval($this->getId());
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @param int $xcoord
+     */
     public function setXcoord(int $xcoord): void
     {
         $this->xcoord = $xcoord;
     }
 
+    /**
+     * @return int|null
+     */
     public function getXcoord(): ?int
     {
         return $this->xcoord;
     }
 
+    /**
+     * @param int $ycoord
+     */
     public function setYcoord(int $ycoord): void
     {
         $this->ycoord = $ycoord;
     }
 
+    /**
+     * @return int|null
+     */
     public function getYcoord(): ?int
     {
         return $this->ycoord;
     }
 
+    /**
+     * @return Game|null
+     */
     public function getGame(): ?Game
     {
         return $this->game;
     }
 
+    /**
+     * @param Game|null $game
+     * @return $this
+     */
     public function setGame(?Game $game): self
     {
         $this->game = $game;
@@ -140,11 +169,18 @@ class Turn
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -194,13 +230,10 @@ class Turn
             {
                 return false;
             }
-
         }
-
 
         return true;
     }
-
 
     /**
      * @Assert\IsTrue(message=ConstraintMessage::TURN_HAS_NO_VALID_COORDS)
@@ -209,12 +242,13 @@ class Turn
     public function isTurnValid()
     {
         return $this->game->getHeight() > $this->getXcoord() && $this->game->getWidth() > $this->getYcoord();
-
     }
 
+    /**
+     * @return bool
+     */
     public function isTurnHit()
     {
-
         $cells = $this->getGame()->getCells();
 
         foreach ($cells as $cell)

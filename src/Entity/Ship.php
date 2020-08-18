@@ -65,38 +65,58 @@ class Ship
      */
     private $user;
 
+    /**
+     * Ship constructor.
+     */
     public function __construct()
     {
         $this->cells = new ArrayCollection();
     }
 
-
+    /**
+     * @return mixed
+     */
     public function __toString()
     {
         return strval($this->getId());
     }
 
-
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getState(): ?string
     {
         return $this->state;
     }
 
+    /**
+     * @param string $state
+     */
     public function setState(string $state): void
     {
         $this->state = $state;
     }
 
+    /**
+     * @return Game|null
+     */
     public function getGame(): ?Game
     {
         return $this->game;
     }
 
+    /**
+     * @param Game|null $game
+     * @return $this
+     */
     public function setGame(?Game $game): self
     {
         $this->game = $game;
@@ -104,11 +124,18 @@ class Ship
         return $this;
     }
 
+    /**
+     * @return Shiptype|null
+     */
     public function getType(): ?Shiptype
     {
         return $this->type;
     }
 
+    /**
+     * @param Shiptype|null $type
+     * @return $this
+     */
     public function setType(?Shiptype $type): self
     {
         $this->type = $type;
@@ -124,6 +151,10 @@ class Ship
         return $this->cells;
     }
 
+    /**
+     * @param Cell $cell
+     * @return $this
+     */
     public function addCell(Cell $cell): self
     {
         if (!$this->cells->contains($cell)) {
@@ -134,6 +165,10 @@ class Ship
         return $this;
     }
 
+    /**
+     * @param Cell $cell
+     * @return $this
+     */
     public function removeCell(Cell $cell): self
     {
         if ($this->cells->contains($cell)) {
@@ -147,11 +182,18 @@ class Ship
         return $this;
     }
 
+    /**
+     * @return Placement|null
+     */
     public function getPlacement(): ?Placement
     {
         return $this->placement;
     }
 
+    /**
+     * @param Placement $placement
+     * @return $this
+     */
     public function setPlacement(Placement $placement): self
     {
         $this->placement = $placement;
@@ -164,11 +206,18 @@ class Ship
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;

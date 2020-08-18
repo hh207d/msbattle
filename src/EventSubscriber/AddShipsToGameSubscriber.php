@@ -19,11 +19,27 @@ use Symfony\Component\Security\Core\Security;
 
 class AddShipsToGameSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var Security
+     */
     private $security;
+
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
-
+    /**
+     * AddShipsToGameSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         Security $security,
         LoggerInterface $logger,
@@ -35,6 +51,9 @@ class AddShipsToGameSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @return array|array[]
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -42,9 +61,13 @@ class AddShipsToGameSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param ViewEvent $event
+     */
     public function addShips(ViewEvent $event)
     {
         $game = $event->getControllerResult();
+        // TODO: try catch?
         $method = $event->getRequest()->getMethod();
         if (!$game instanceof Game || Request::METHOD_POST !== $method) {
             return;
@@ -70,8 +93,6 @@ class AddShipsToGameSubscriber implements EventSubscriberInterface
             $ship->setType($shipType);
             $ship->setGame($game);
             $this->entityManager->persist($ship);
-
-
         }
         $this->entityManager->flush();
     }

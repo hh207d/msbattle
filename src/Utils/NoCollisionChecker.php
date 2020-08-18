@@ -8,6 +8,10 @@ use App\Entity\Placement;
 
 class NoCollisionChecker
 {
+    /**
+     * @param Placement $placement
+     * @return bool
+     */
     public function check(Placement $placement)
     {
         $game = $placement->getGame();

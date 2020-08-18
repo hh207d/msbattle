@@ -20,15 +20,23 @@ class HandleTurnCriticalHitSubscriber implements EventSubscriberInterface
      * @var Security
      */
     private $security;
+
     /**
      * @var LoggerInterface
      */
     private $logger;
+
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
+    /**
+     * HandleTurnCriticalHitSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         Security $security,
         LoggerInterface $logger,
@@ -40,40 +48,46 @@ class HandleTurnCriticalHitSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @return array|array[]
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::VIEW => ['addIsShipSunken', EventPriorities::POST_WRITE]
+        ];
+    }
 
+    /**
+     * @param ViewEvent $event
+     */
     public function addIsShipSunken(ViewEvent $event)
     {
         /** @var Turn $turn */
         $turn = $event->getControllerResult();
+        // TODO: try catch?
         $method = $event->getRequest()->getMethod();
-        if (!$turn instanceof Turn || Request::METHOD_POST !== $method) {
+        if (!$turn instanceof Turn || Request::METHOD_POST !== $method)
+        {
             return;
         }
 
         $result = false;
-        if($turn->isTurnHit())
+        if ($turn->isTurnHit())
         {
             $cells = $turn->getGame()->getCells();
             /** @var Cell $cell */
-            foreach ($cells as $cell)
-            {
-                if($cell->getUser() === $turn->getUser())
+            foreach ($cells as $cell) {
+                if ($cell->getUser() === $turn->getUser())
                 {
                     continue;
                 }
-                if($cell->getXCoordinate() === $turn->getXcoord() && $cell->getYCoordinate() === $turn->getYcoord())
+                if ($cell->getXCoordinate() === $turn->getXcoord() && $cell->getYCoordinate() === $turn->getYcoord())
                 {
                     $result = $cell->getShip()->getState() === ShipState::STATE_SUNK;
                 }
             }
         }
         $turn->setShipSunken($result);
-    }
-
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::VIEW => ['addIsShipSunken', EventPriorities::POST_WRITE]
-        ];
     }
 }

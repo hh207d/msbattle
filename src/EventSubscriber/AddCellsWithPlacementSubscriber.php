@@ -16,11 +16,27 @@ use Symfony\Component\Security\Core\Security;
 
 class AddCellsWithPlacementSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var Security
+     */
     private $security;
+
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
-
+    /**
+     * AddCellsWithPlacementSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         Security $security,
         LoggerInterface $logger,
@@ -32,6 +48,9 @@ class AddCellsWithPlacementSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @return array|array[]
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -39,9 +58,13 @@ class AddCellsWithPlacementSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param ViewEvent $event
+     */
     public function addCells(ViewEvent $event)
     {
         $placement = $event->getControllerResult();
+        // TODO: try catch?
         $method = $event->getRequest()->getMethod();
         if (!$placement instanceof Placement || Request::METHOD_POST !== $method) {
             return;

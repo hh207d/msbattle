@@ -8,6 +8,10 @@ use App\Entity\Placement;
 
 class InsideOceanChecker
 {
+    /**
+     * @param Placement $placement
+     * @return bool
+     */
     public function check(Placement $placement)
     {
         $game = $placement->getGame();
@@ -27,7 +31,6 @@ class InsideOceanChecker
             {
                 return false;
             }
-
         }
 
         return true;

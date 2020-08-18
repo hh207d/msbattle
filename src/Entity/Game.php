@@ -80,12 +80,12 @@ class Game
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="games")
-
      */
     private $user;
 
-    private $winner;
-
+    /**
+     * Game constructor.
+     */
     public function __construct()
     {
         $this->ships = new ArrayCollection();
@@ -94,11 +94,17 @@ class Game
         $this->cells = new ArrayCollection();
     }
 
+    /**
+     * @return mixed
+     */
     public function __toString()
     {
         return strval($this->getId());
     }
 
+    /**
+     * @return string
+     */
     public function getWinner(){
         $result = 'no winner yet';
         If($this->getState() == GameState::STATE_FINISHED)
@@ -116,36 +122,57 @@ class Game
         return $result;
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @param int $height
+     */
     public function setHeight(int $height): void
     {
         $this->height = $height;
     }
 
+    /**
+     * @return int|null
+     */
     public function getHeight(): ?int
     {
         return $this->height;
     }
 
+    /**
+     * @param int $width
+     */
     public function setWidth(int $width): void
     {
         $this->width = $width;
     }
 
+    /**
+     * @return int|null
+     */
     public function getWidth(): ?int
     {
         return $this->width;
     }
 
+    /**
+     * @param string $state
+     */
     public function setState(string $state): void
     {
         $this->state = $state;
     }
 
+    /**
+     * @return string|null
+     */
     public function getState(): ?string
     {
         return $this->state;
@@ -159,6 +186,10 @@ class Game
         return $this->ships;
     }
 
+    /**
+     * @param Ship $ship
+     * @return $this
+     */
     public function addShip(Ship $ship): self
     {
         if (!$this->ships->contains($ship)) {
@@ -169,6 +200,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Ship $ship
+     * @return $this
+     */
     public function removeShip(Ship $ship): self
     {
         if ($this->ships->contains($ship)) {
@@ -190,6 +225,10 @@ class Game
         return $this->placements;
     }
 
+    /**
+     * @param Placement $placement
+     * @return $this
+     */
     public function addPlacement(Placement $placement): self
     {
         if (!$this->placements->contains($placement)) {
@@ -200,6 +239,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Placement $placement
+     * @return $this
+     */
     public function removePlacement(Placement $placement): self
     {
         if ($this->placements->contains($placement)) {
@@ -221,6 +264,10 @@ class Game
         return $this->turns;
     }
 
+    /**
+     * @param Turn $turn
+     * @return $this
+     */
     public function addTurn(Turn $turn): self
     {
         if (!$this->turns->contains($turn)) {
@@ -231,6 +278,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Turn $turn
+     * @return $this
+     */
     public function removeTurn(Turn $turn): self
     {
         if ($this->turns->contains($turn)) {
@@ -262,6 +313,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Cell $cell
+     * @return $this
+     */
     public function removeCell(Cell $cell): self
     {
         if ($this->cells->contains($cell)) {
@@ -275,11 +330,18 @@ class Game
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;

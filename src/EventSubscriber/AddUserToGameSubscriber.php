@@ -13,15 +13,30 @@ use Symfony\Component\Security\Core\Security;
 
 class AddUserToGameSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var Security
+     */
     private $security;
+
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
+    /**
+     * AddUserToGameSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     */
     public function __construct(Security $security, LoggerInterface $logger)
     {
         $this->security = $security;
         $this->logger = $logger;
     }
 
+    /**
+     * @return array|array[]
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -29,15 +44,18 @@ class AddUserToGameSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param ViewEvent $event
+     */
     public function addUser(ViewEvent $event)
     {
         $game = $event->getControllerResult();
+        // TODO: add try catch?
         $method = $event->getRequest()->getMethod();
         if (!$game instanceof Game || Request::METHOD_POST !== $method) {
             return;
         }
         $user = $this->security->getUser();
         $game->setUser($user);
-
     }
 }

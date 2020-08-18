@@ -14,10 +14,27 @@ use Symfony\Component\Security\Core\Security;
 
 class HandleGameResponseSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var Security
+     */
     private $security;
+
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
+    /**
+     * HandleGameResponseSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         Security $security,
         LoggerInterface $logger,
@@ -29,6 +46,9 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @return array|array[]
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -36,9 +56,13 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param ViewEvent $event
+     */
     public function removeCompData(ViewEvent $event)
     {
         $game = $event->getControllerResult();
+        // TODO: try catch?
         $method = $event->getRequest()->getMethod();
         if (!$game instanceof Game || Request::METHOD_POST !== $method) {
             return;
@@ -61,6 +85,5 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
                 $game->removePlacement($placement);
             }
         }
-
     }
 }

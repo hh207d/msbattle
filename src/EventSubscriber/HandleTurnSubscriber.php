@@ -13,6 +13,7 @@ use App\Helper\Constant;
 use App\Helper\GameState;
 use App\Helper\ShipState;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +27,12 @@ class HandleTurnSubscriber implements EventSubscriberInterface
     private $logger;
     private $entityManager;
 
+    /**
+     * HandleTurnSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         Security $security,
         LoggerInterface $logger,
@@ -54,6 +61,7 @@ class HandleTurnSubscriber implements EventSubscriberInterface
     public function handleTurn(ViewEvent $event)
     {
         $turn = $event->getControllerResult();
+        // TODO: add try catch block
         $method = $event->getRequest()->getMethod();
         if(!$turn instanceof Turn || Request::METHOD_POST !== $method)
         {
@@ -62,7 +70,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
         $game = $turn->getGame();
         $player = $game->getUser();
-        // TODO: rm magic number..
         $targetPlayer = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
 
         $this->updateOrCreateCellAfterTurn($turn);
@@ -88,9 +95,11 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         }
     }
 
-
-
-
+    /**
+     * @param User $player
+     * @param User $comp
+     * @param Game $game
+     */
     private function handleEnemyTurn(User $player, User $comp, Game $game)
     {
         $isValidTurn = false;
@@ -126,6 +135,9 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         $this->updateOrCreateCellAfterTurn($enemyTurn);
     }
 
+    /**
+     * @param Turn $turn
+     */
     private function updateOrCreateCellAfterTurn(Turn $turn)
     {
         // turn: 'user' ist der der grad den Turn gemacht hat
@@ -158,6 +170,7 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
         }
         $this->entityManager->persist($targetCell);
+        // TODO: try catch?
         $this->logger->log('error', 'targetCell->getCellstate()');
         $this->logger->log('error', $targetCell->getCellstate());
         $this->entityManager->flush();
@@ -168,6 +181,10 @@ class HandleTurnSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param Turn $turn
+     * @param Cell $cell
+     */
      private function checkAndUpdateShipState(Turn $turn, Cell $cell)
      {
          $this->logger->log('Error', 'bin da..');
@@ -185,6 +202,7 @@ class HandleTurnSubscriber implements EventSubscriberInterface
          {
              $ship->setState(ShipState::STATE_SUNK);
              $turn->setShipSunken(true);
+             // TODO: try catch?
              $this->logger->log('error', 'Ship sunken!!!');
 
              $this->entityManager->persist($ship);

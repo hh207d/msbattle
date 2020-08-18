@@ -9,6 +9,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class PlacementInsideOceanValidator extends ConstraintValidator
 {
+    /**
+     * @param mixed $value
+     * @param Constraint $constraint
+     */
     public function validate($value, Constraint $constraint)
     {
         /* @var $constraint PlacementInsideOcean */
@@ -22,8 +26,6 @@ class PlacementInsideOceanValidator extends ConstraintValidator
             return;
         }
 
-        $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $value)
-            ->addViolation();
+        $this->context->buildViolation($constraint->message)->addViolation();
     }
 }

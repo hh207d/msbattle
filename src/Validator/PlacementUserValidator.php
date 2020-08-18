@@ -8,6 +8,11 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class PlacementUserValidator extends ConstraintValidator
 {
+
+    /**
+     * @param mixed $value
+     * @param Constraint $constraint
+     */
     public function validate($value, Constraint $constraint)
     {
         /* @var $constraint PlacementUser */
@@ -21,8 +26,6 @@ class PlacementUserValidator extends ConstraintValidator
             return;
         }
 
-        $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $value)
-            ->addViolation();
+        $this->context->buildViolation($constraint->message)->addViolation();
     }
 }

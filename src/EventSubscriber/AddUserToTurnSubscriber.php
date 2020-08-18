@@ -13,12 +13,31 @@ use Symfony\Component\Security\Core\Security;
 
 class AddUserToTurnSubscriber implements EventSubscriberInterface
 {
+
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * AddUserToTurnSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     */
     public function __construct(Security $security, LoggerInterface $logger)
     {
         $this->security = $security;
         $this->logger = $logger;
     }
 
+    /**
+     * @return array|array[]
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -26,9 +45,13 @@ class AddUserToTurnSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param ViewEvent $event
+     */
     public function addUser(ViewEvent $event)
     {
         $turn = $event->getControllerResult();
+        // TODO: add try catch?
         $method = $event->getRequest()->getMethod();
         if(!$turn instanceof Turn || Request::METHOD_POST !== $method)
         {

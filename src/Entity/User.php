@@ -63,6 +63,9 @@ class User implements UserInterface
      */
     private $turns;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -72,16 +75,26 @@ class User implements UserInterface
         $this->turns = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         return $this->getEmail();
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -89,6 +102,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +132,10 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -131,6 +151,10 @@ class User implements UserInterface
         return (string)$this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -163,6 +187,10 @@ class User implements UserInterface
         return $this->games;
     }
 
+    /**
+     * @param Game $game
+     * @return $this
+     */
     public function addGame(Game $game): self
     {
         if (!$this->games->contains($game)) {
@@ -173,6 +201,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Game $game
+     * @return $this
+     */
     public function removeGame(Game $game): self
     {
         if ($this->games->contains($game)) {
@@ -194,6 +226,10 @@ class User implements UserInterface
         return $this->cells;
     }
 
+    /**
+     * @param Cell $cell
+     * @return $this
+     */
     public function addCell(Cell $cell): self
     {
         if (!$this->cells->contains($cell)) {
@@ -204,6 +240,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Cell $cell
+     * @return $this
+     */
     public function removeCell(Cell $cell): self
     {
         if ($this->cells->contains($cell)) {
@@ -225,6 +265,10 @@ class User implements UserInterface
         return $this->placements;
     }
 
+    /**
+     * @param Placement $placement
+     * @return $this
+     */
     public function addPlacement(Placement $placement): self
     {
         if (!$this->placements->contains($placement)) {
@@ -235,6 +279,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Placement $placement
+     * @return $this
+     */
     public function removePlacement(Placement $placement): self
     {
         if ($this->placements->contains($placement)) {

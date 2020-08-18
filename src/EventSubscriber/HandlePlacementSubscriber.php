@@ -23,10 +23,27 @@ use Symfony\Component\Security\Core\Security;
 
 class HandlePlacementSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var Security
+     */
     private $security;
+
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
+    /**
+     * HandlePlacementSubscriber constructor.
+     * @param Security $security
+     * @param LoggerInterface $logger
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         Security $security,
         LoggerInterface $logger,
@@ -54,8 +71,10 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
     public function handlePlacement(ViewEvent $event)
     {
         $placement = $event->getControllerResult();
+        // TODO: try catch?
         $method = $event->getRequest()->getMethod();
-        if (!$placement instanceof Placement || Request::METHOD_POST !== $method) {
+        if (!$placement instanceof Placement || Request::METHOD_POST !== $method)
+        {
             return;
         }
 
@@ -68,9 +87,12 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
         // TODO: implement COMP placement, as for now the other player makes same placement.. :_(
         $this->doCompPlacement($game, $placement);
         $this->handleGameStateChange($game);
-        //
     }
 
+    /**
+     * @param Game $game
+     * @param Placement $placement
+     */
     private function doCompPlacement(Game $game, Placement $placement)
     {
         $enemy = $this->entityManager->getRepository(User::class)->findOneBy(['email' => Constant::COMP_EMAIL]);
@@ -85,14 +107,16 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
         $compPlacement->setYcoord($y);
         $compPlacement->setOrientation($orientation);
         $allShips = $game->getShips();
-        foreach ($allShips as $otherShip) {
+        foreach ($allShips as $otherShip)
+        {
 
             $ownType = $placement->getShip()->getType();
             $compType = $otherShip->getType();
             $shipUser = $otherShip->getUser();
             $compUser = $enemy;
 
-            if ($ownType == $compType && $shipUser == $compUser) {
+            if ($ownType == $compType && $shipUser == $compUser)
+            {
                 $compPlacement->setShip($otherShip);
                 $otherShip->setState(ShipState::STATE_FLOATING);
                 $this->entityManager->persist($otherShip);
@@ -100,7 +124,8 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
 
                 $coordinatesGetter = new CoordinatesGetter();
                 $coordinatesToUpdate = $coordinatesGetter->getPointsToUpdate($placement);
-                foreach ($coordinatesToUpdate as $coordinate) {
+                foreach ($coordinatesToUpdate as $coordinate)
+                {
                     $cell = new Cell();
                     $cell->setGame($game);
                     $cell->setUser($compUser);
@@ -117,11 +142,15 @@ class HandlePlacementSubscriber implements EventSubscriberInterface
         $this->entityManager->flush();
     }
 
+    /**
+     * @param Game $game
+     */
     private function handleGameStateChange(Game $game)
     {
         $sem = $this->entityManager->getRepository(Ship::class);
         $dockedShips = $sem->findBy(['state' => ShipState::STATE_DOCKED, 'game' => $game]);
-        if (empty($dockedShips)) {
+        if (empty($dockedShips))
+        {
             $game->setState(GameState::STATE_BATTLE);
             $this->entityManager->persist($game);
             $this->entityManager->flush();

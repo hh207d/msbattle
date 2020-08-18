@@ -68,53 +68,82 @@ class Cell
      */
     private $user;
 
-
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         return strval($this->getId());
     }
 
-
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return int|null
+     */
     public function getXCoordinate(): ?int
     {
         return $this->xCoordinate;
     }
 
+    /**
+     * @param int $xCoordinate
+     */
     public function setXCoordinate(int $xCoordinate): void
     {
         $this->xCoordinate = $xCoordinate;
     }
 
+    /**
+     * @return int|null
+     */
     public function getYCoordinate(): ?int
     {
         return $this->yCoordinate;
     }
 
+    /**
+     * @param int $yCoordinate
+     */
     public function setYCoordinate(int $yCoordinate): void
     {
         $this->yCoordinate = $yCoordinate;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCellstate(): ?string
     {
         return $this->cellstate;
     }
 
+    /**
+     * @param string $cellstate
+     */
     public function setCellstate(string $cellstate): void
     {
         $this->cellstate = $cellstate;
     }
 
+    /**
+     * @return Ship|null
+     */
     public function getShip(): ?Ship
     {
         return $this->ship;
     }
 
+    /**
+     * @param Ship|null $ship
+     * @return $this
+     */
     public function setShip(?Ship $ship): self
     {
         $this->ship = $ship;
@@ -122,11 +151,18 @@ class Cell
         return $this;
     }
 
+    /**
+     * @return Game|null
+     */
     public function getGame(): ?Game
     {
         return $this->game;
     }
 
+    /**
+     * @param Game|null $game
+     * @return $this
+     */
     public function setGame(?Game $game): self
     {
         $this->game = $game;
@@ -134,16 +170,22 @@ class Cell
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
-
 }

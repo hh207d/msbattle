@@ -65,7 +65,6 @@ class Placement
      */
     private $game;
 
-
     /**
      * @ORM\OneToOne(targetEntity=Ship::class, inversedBy="placement", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
@@ -78,41 +77,65 @@ class Placement
      */
     private $user;
 
+    /**
+     * @return mixed
+     */
     public function __toString()
     {
         return strval($this->getId());
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return int|null
+     */
     public function getXcoord(): ?int
     {
         return $this->xcoord;
     }
 
+    /**
+     * @param int $xcoord
+     */
     public function setXcoord(int $xcoord): void
     {
         $this->xcoord = $xcoord;
     }
 
+    /**
+     * @return int|null
+     */
     public function getYcoord(): ?int
     {
         return $this->ycoord;
     }
 
+    /**
+     * @param int $ycoord
+     */
     public function setYcoord(int $ycoord): void
     {
         $this->ycoord = $ycoord;
     }
 
+    /**
+     * @return string|null
+     */
     public function getOrientation(): ?string
     {
         return $this->orientation;
     }
 
+    /**
+     * @param string $orientation
+     */
     public function setOrientation(string $orientation): void
     {
         $this->orientation = $orientation;
@@ -127,11 +150,18 @@ class Placement
         return $this->getGame()->getState() === GameState::STATE_STARTED;
     }
 
+    /**
+     * @return Game|null
+     */
     public function getGame(): ?Game
     {
         return $this->game;
     }
 
+    /**
+     * @param Game|null $game
+     * @return $this
+     */
     public function setGame(?Game $game): self
     {
         $this->game = $game;
@@ -148,11 +178,18 @@ class Placement
         return $this->getShip()->getState() === ShipState::STATE_DOCKED;
     }
 
+    /**
+     * @return Ship|null
+     */
     public function getShip(): ?Ship
     {
         return $this->ship;
     }
 
+    /**
+     * @param Ship $ship
+     * @return $this
+     */
     public function setShip(Ship $ship): self
     {
         $this->ship = $ship;
@@ -169,11 +206,18 @@ class Placement
         return $this->getShip()->getUser() === $this->getUser();
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -198,6 +242,4 @@ class Placement
     {
         return in_array($this->getOrientation(), [Orientation::HORIZONTAL, Orientation::VERTICAL]);
     }
-
-
 }

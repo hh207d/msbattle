@@ -11,6 +11,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $availableShipTypes =
@@ -44,7 +47,6 @@ class AppFixtures extends Fixture
             $manager->persist($shipType);
             $manager->flush();
         }
-
 
         $adminUser = new User();
         $adminUser->setEmail(Constant::COMP_EMAIL);

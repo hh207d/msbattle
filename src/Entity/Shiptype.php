@@ -45,32 +45,49 @@ class Shiptype
      */
     private $length;
 
-
+    /**
+     * @return string|null
+     */
     public function __toString()
     {
         return $this->getName();
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return int|null
+     */
     public function getLength(): ?int
     {
         return $this->length;
     }
 
+    /**
+     * @param int $length
+     */
     public function setLength(int $length): void
     {
         $this->length = $length;
