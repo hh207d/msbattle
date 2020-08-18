@@ -35,6 +35,7 @@
                 <p> Abgeschlossene Spiele; {{ finishedGames }}</p>
             {% endif %}
             {% if not gameid is empty %}
+
                 {% if gameState == 'STATE_STARTED' %}
                     <h2>Game started!!!!!!</h2>
                     <p>plz set the remaining ships:</p>
@@ -59,6 +60,11 @@
                             <p> {{ turn.xcoord }} / {{ turn.ycoord }} - {{ turn.turnHit }}</p>
                         {% endfor %}
                     </div>
+                {% endif %}
+                {% if gameState == 'STATE_FINISHED' %}
+                    <h2>Dieses Spiel ist beendet</h2>
+                    <h3>{{ winner }}</h3>
+
                 {% endif %}
 
             {% endif %}

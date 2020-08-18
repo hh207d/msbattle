@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -57,11 +58,11 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
     /**
      * @param ViewEvent $event
+     * @throws SuspiciousOperationException
      */
     public function handleTurn(ViewEvent $event)
     {
         $turn = $event->getControllerResult();
-        // TODO: add try catch block
         $method = $event->getRequest()->getMethod();
         if(!$turn instanceof Turn || Request::METHOD_POST !== $method)
         {
@@ -143,6 +144,7 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
     /**
      * @param Turn $turn
+     * @throws InvalidArgumentException
      */
     private function updateOrCreateCellAfterTurn(Turn $turn)
     {
@@ -176,7 +178,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
 
         }
         $this->entityManager->persist($targetCell);
-        // TODO: try catch?
         $this->logger->log('error', 'targetCell->getCellstate()');
         $this->logger->log('error', $targetCell->getCellstate());
         $this->entityManager->flush();
@@ -190,6 +191,7 @@ class HandleTurnSubscriber implements EventSubscriberInterface
     /**
      * @param Turn $turn
      * @param Cell $cell
+     * @throws InvalidArgumentException
      */
      private function checkAndUpdateShipState(Turn $turn, Cell $cell)
      {
@@ -208,7 +210,6 @@ class HandleTurnSubscriber implements EventSubscriberInterface
          {
              $ship->setState(ShipState::STATE_SUNK);
              $turn->setShipSunken(true);
-             // TODO: try catch?
              $this->logger->log('error', 'Ship sunken!!!');
 
              $this->entityManager->persist($ship);

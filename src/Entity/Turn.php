@@ -72,6 +72,8 @@ class Turn
      */
     private $shipSunken = false;
 
+    private $turnHit;
+
     /**
      * @return mixed
      */
@@ -262,11 +264,13 @@ class Turn
                     {
                         $this->setShipSunken(true);
                     }
+                    $this->setTurnHit(true);
                     return true;
                 }
                 return ($this->getXcoord() === $cell->getXCoordinate() && $this->getYcoord() === $cell->getYCoordinate());
             }
         }
+        $this->setTurnHit(true);
         return false;
 
     }
@@ -290,6 +294,22 @@ class Turn
     public function isShipSunken()
     {
         return $this->getShipSunken();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTurnHit()
+    {
+        return $this->turnHit;
+    }
+
+    /**
+     * @param mixed $turnHit
+     */
+    public function setTurnHit($turnHit): void
+    {
+        $this->turnHit = $turnHit;
     }
 
 }

@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\Placement;
 use App\Entity\Ship;
 use App\Entity\Turn;
+use App\Helper\Constant;
 use App\Helper\GameState;
 use App\Helper\ShipState;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,7 @@ class DefaultController extends AbstractController
         $startedGames = 0;
         $battlingGames = 0;
         $finishedGames = 0;
-
+        $winner = Constant::WINNER_NONE;
 
         if($gameid)
         {
@@ -53,6 +54,31 @@ class DefaultController extends AbstractController
             {
                 /** @var Turn[] $turns */
                 $turns = $this->getDoctrine()->getRepository(Turn::class)->findBy(['game' => $game]);
+                foreach ($turns as $turn)
+                {
+
+                    $turn->setTurnHit($this->getHit());
+                }
+
+
+
+            }
+
+            if($gameState == GameState::STATE_FINISHED)
+            {
+                $winner = Constant::WINNER_COMP;
+                /** @var Turn[] $turns */
+                $turns = $this->getDoctrine()->getRepository(Turn::class)->findBy(['game' => $game]);
+                $ships = $game->getShips();
+
+                /** @var Ship $ship */
+                foreach ($ships as $ship) {
+                    if($ship->getUser() === $game->getUser() && $ship->getState() === ShipState::STATE_FLOATING)
+                    {
+                        $winner = Constant::WINNER_PLAYER;
+                    }
+                }
+
             }
         }
         else
@@ -88,7 +114,17 @@ class DefaultController extends AbstractController
             'gameState' => $gameState,
             'placeableShips' => $placeableShips,
             'turns' => $turns,
+            'winner' => $winner
 
         ]);
+    }
+
+    private function getHit(Turn $turn)
+    {
+        $result = false;
+
+
+
+        return $result;
     }
 }

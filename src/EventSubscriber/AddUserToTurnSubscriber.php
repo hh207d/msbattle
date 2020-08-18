@@ -6,6 +6,7 @@ use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Turn;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -47,11 +48,11 @@ class AddUserToTurnSubscriber implements EventSubscriberInterface
 
     /**
      * @param ViewEvent $event
+     * @throws SuspiciousOperationException
      */
     public function addUser(ViewEvent $event)
     {
         $turn = $event->getControllerResult();
-        // TODO: add try catch?
         $method = $event->getRequest()->getMethod();
         if(!$turn instanceof Turn || Request::METHOD_POST !== $method)
         {

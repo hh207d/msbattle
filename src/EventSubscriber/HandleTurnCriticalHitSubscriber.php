@@ -9,6 +9,7 @@ use App\Helper\ShipState;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -60,12 +61,12 @@ class HandleTurnCriticalHitSubscriber implements EventSubscriberInterface
 
     /**
      * @param ViewEvent $event
+     * @throws SuspiciousOperationException
      */
     public function addIsShipSunken(ViewEvent $event)
     {
         /** @var Turn $turn */
         $turn = $event->getControllerResult();
-        // TODO: try catch?
         $method = $event->getRequest()->getMethod();
         if (!$turn instanceof Turn || Request::METHOD_POST !== $method)
         {

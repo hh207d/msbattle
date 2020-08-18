@@ -12,6 +12,7 @@ use App\Helper\ShipState;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -63,11 +64,11 @@ class AddShipsToGameSubscriber implements EventSubscriberInterface
 
     /**
      * @param ViewEvent $event
+     * @throws SuspiciousOperationException
      */
     public function addShips(ViewEvent $event)
     {
         $game = $event->getControllerResult();
-        // TODO: try catch?
         $method = $event->getRequest()->getMethod();
         if (!$game instanceof Game || Request::METHOD_POST !== $method) {
             return;
