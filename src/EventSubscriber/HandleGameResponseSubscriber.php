@@ -71,49 +71,41 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if(Request::METHOD_POST)
+        $ships = $game->getShips();
+        $user = $game->getUser();
+        foreach ($ships as $ship)
         {
-            $ships = $game->getShips();
-            $user = $game->getUser();
-            foreach ($ships as $ship)
+            if($ship->getUser() !== $user)
             {
-                if($ship->getUser() !== $user)
-                {
-                    $game->removeShip($ship);
-                }
+                $game->removeShip($ship);
             }
-            $placements = $game->getPlacements();
-            foreach ($placements as $placement)
+        }
+        $placements = $game->getPlacements();
+        foreach ($placements as $placement)
+        {
+            if($placement->getUser() !== $user)
             {
-                if($placement->getUser() !== $user)
-                {
-                    $game->removePlacement($placement);
-                }
+                $game->removePlacement($placement);
             }
         }
 
-        if(Request::METHOD_GET)
+        $result = Constant::WINNER_NONE;
+        if($game->getState() === GameState::STATE_FINISHED)
         {
 
-            $result = Constant::WINNER_NONE;
-
-
-            if($game->getState() === GameState::STATE_FINISHED)
+            $result = Constant::WINNER_COMP;
+            $allShips = $game->getShips();
+            foreach ($allShips as $ship)
             {
-
-                $result = Constant::WINNER_COMP;
-                $allShips = $game->getShips();
-                foreach ($allShips as $ship)
+                if($ship->getUser() === $game->getUser() && $ship->getState() === ShipState::STATE_FLOATING)
                 {
-                    if($ship->getUser() === $game->getUser() && $ship->getState() === ShipState::STATE_FLOATING)
-                    {
-                        $result = Constant::WINNER_PLAYER;
-                        break;
-                    }
+                    $result = Constant::WINNER_PLAYER;
+                    break;
                 }
             }
-            $game->setWinner($result);
         }
+        $game->setWinner($result);
+
     }
 
     /**
@@ -143,7 +135,5 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
             }
         }
         return $result;
-
-
     }
 }
