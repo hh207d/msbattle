@@ -4,6 +4,9 @@ namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Game;
+use App\Helper\Constant;
+use App\Helper\GameState;
+use App\Helper\ShipState;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -64,26 +67,83 @@ class HandleGameResponseSubscriber implements EventSubscriberInterface
         $game = $event->getControllerResult();
         // TODO: try catch?
         $method = $event->getRequest()->getMethod();
+        if (!$game instanceof Game || !in_array($method, [Request::METHOD_POST, Request::METHOD_GET])) {
+            return;
+        }
+
+        if(Request::METHOD_POST)
+        {
+            $ships = $game->getShips();
+            $user = $game->getUser();
+            foreach ($ships as $ship)
+            {
+                if($ship->getUser() !== $user)
+                {
+                    $game->removeShip($ship);
+                }
+            }
+            $placements = $game->getPlacements();
+            foreach ($placements as $placement)
+            {
+                if($placement->getUser() !== $user)
+                {
+                    $game->removePlacement($placement);
+                }
+            }
+        }
+
+        if(Request::METHOD_GET)
+        {
+
+            $result = Constant::WINNER_NONE;
+
+
+            if($game->getState() === GameState::STATE_FINISHED)
+            {
+
+                $result = Constant::WINNER_COMP;
+                $allShips = $game->getShips();
+                foreach ($allShips as $ship)
+                {
+                    if($ship->getUser() === $game->getUser() && $ship->getState() === ShipState::STATE_FLOATING)
+                    {
+                        $result = Constant::WINNER_PLAYER;
+                        break;
+                    }
+                }
+            }
+            $game->setWinner($result);
+        }
+    }
+
+    /**
+     * @param ViewEvent $event
+     */
+    public function addWinnerData(ViewEvent $event)
+    {
+        $game = $event->getControllerResult();
+        // TODO: try catch?
+        $method = $event->getRequest()->getMethod();
         if (!$game instanceof Game || Request::METHOD_POST !== $method) {
             return;
         }
 
-        $ships = $game->getShips();
-        $user = $game->getUser();
-        foreach ($ships as $ship)
+        $result = 'no winner yet';
+        if($game->getState() == GameState::STATE_FINISHED)
         {
-            if($ship->getUser() !== $user)
+            $$result = 'Comp has won';
+            $allShips = $game->getShips();
+            foreach ($allShips as $ship)
             {
-                $game->removeShip($ship);
+                if($ship->getUser() === $game->getUser() && $ship->getUser() === ShipState::STATE_FLOATING)
+                {
+                    $$result = 'Player has won';
+                    return $result;
+                }
             }
         }
-        $placements = $game->getPlacements();
-        foreach ($placements as $placement)
-        {
-            if($placement->getUser() !== $user)
-            {
-                $game->removePlacement($placement);
-            }
-        }
+        return $result;
+
+
     }
 }

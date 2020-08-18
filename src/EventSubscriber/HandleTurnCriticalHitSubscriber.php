@@ -73,19 +73,16 @@ class HandleTurnCriticalHitSubscriber implements EventSubscriberInterface
         }
 
         $result = false;
-        if ($turn->isTurnHit())
-        {
-            $cells = $turn->getGame()->getCells();
-            /** @var Cell $cell */
-            foreach ($cells as $cell) {
-                if ($cell->getUser() === $turn->getUser())
-                {
-                    continue;
-                }
-                if ($cell->getXCoordinate() === $turn->getXcoord() && $cell->getYCoordinate() === $turn->getYcoord())
-                {
-                    $result = $cell->getShip()->getState() === ShipState::STATE_SUNK;
-                }
+        $cells = $turn->getGame()->getCells();
+        /** @var Cell $cell */
+        foreach ($cells as $cell) {
+            if ($cell->getUser() === $turn->getUser())
+            {
+                continue;
+            }
+            if ($cell->getXCoordinate() === $turn->getXcoord() && $cell->getYCoordinate() === $turn->getYcoord())
+            {
+                $result = $cell->getShip()->getState() === ShipState::STATE_SUNK;
             }
         }
         $turn->setShipSunken($result);

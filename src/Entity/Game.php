@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\Constant;
 use App\Helper\GameState;
 use App\Helper\ShipState;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -84,6 +85,11 @@ class Game
     private $user;
 
     /**
+     * @var string
+     */
+    private $winner = Constant::WINNER_NONE;
+
+    /**
      * Game constructor.
      */
     public function __construct()
@@ -106,21 +112,18 @@ class Game
      * @return string
      */
     public function getWinner(){
-        $result = 'no winner yet';
-        If($this->getState() == GameState::STATE_FINISHED)
-        {
-            $$result = 'Comp has won';
-            $allShips = $this->getShips();
-            foreach ($allShips as $ship)
-            {
-                if($ship->getUser() === $this->getUser() && $ship->getUser() === ShipState::STATE_FLOATING)
-                {
-                    $$result = 'Player has won';
-                }
-            }
-        }
-        return $result;
+        return $this->winner;
     }
+
+    /**
+     * @param string $winner
+     */
+    public function setWinner(string $winner): void
+    {
+        $this->winner = $winner;
+    }
+
+
 
     /**
      * @return int|null
@@ -348,4 +351,7 @@ class Game
 
         return $this;
     }
+
+
+
 }

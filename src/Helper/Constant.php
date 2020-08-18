@@ -10,4 +10,8 @@ abstract class Constant
     const PLAYER_EMAIL = 'spieler@spiel.de';
 
     const WATER ='WATER';
+
+    const WINNER_NONE = "no one";
+    const WINNER_PLAYER = "Player has won!!";
+    const WINNER_COMP = "Comp has won!!";
 }
